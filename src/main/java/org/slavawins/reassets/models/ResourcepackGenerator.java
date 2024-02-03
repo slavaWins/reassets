@@ -5,7 +5,6 @@ import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.OveriderModelMCContrcat;
 import org.slavawins.reassets.contracts.VanilaOverideFasadeModel;
-import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.converters.VanilaParser;
@@ -20,13 +19,18 @@ import java.util.List;
 public class ResourcepackGenerator {
 
     public static File rootFoolder;
+    public static ResourcepackGenerator instanse;
+
+    public ResourcepackGenerator() {
+        instanse = this;
+    }
 
     public void CreateStructureResoursePack() {
 
         String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack";
         rootFoolder = new File(resourcepackPath);
 
-        System.out.println(resourcepackPath);
+        //  System.out.println(resourcepackPath);
 
         List<String> foolders = new ArrayList<>();
         foolders.add("/assets/minecraft/textures/generated");
@@ -69,7 +73,7 @@ public class ResourcepackGenerator {
             RegisterImageController.AddImage(imgNew, pathLocal);
         }
         RawImagesRepository.fileList.clear();
-        ChatLog.Write("Files coped in respack!");
+        ChatLog.Debug("Files coped in respack!");
     }
 
     public File getFoolder() {
@@ -87,14 +91,17 @@ public class ResourcepackGenerator {
 
         for (VanilaOverideFasadeModel model : vnailaItemCoreModels) {
 
-            ChatLog.Write(model.file.getName()+" max: "+model.maxId);
+            ChatLog.Debug(model.file.getName() + " max: " + model.maxId);
         }
     }
 
-    public void IndexingEmptyTextures() {
-        for(ItemImageContract img : RegisterImageController.images){
-            VanilaOverideFasadeModel.OverideFindResponse response = VanilaOverideFasadeModel.GetModelByRealitiveTexturePath(img.modelNameForOveride);
-            if(response!=null){
+
+    public void IndexingPivots() {
+        for (ItemImageContract img : RegisterImageController.images) {
+
+            VanilaOverideFasadeModel.OverideFindResponse response = VanilaOverideFasadeModel.GetModelByRealitiveTexturePath(img.modelNameForOveride.replace(".png", ""));
+
+            if (response != null) {
 
                 img.modelId = response.overide.predicate.custom_model_data;
                 img.material = response.fasadeModel.material;
@@ -109,4 +116,5 @@ public class ResourcepackGenerator {
         }
 
     }
+
 }

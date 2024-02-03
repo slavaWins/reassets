@@ -8,7 +8,7 @@ public class Scaner {
 
     public static void Init(File _dataFoolder) {
 
-        System.out.println(" \n-------- ASSET LOADER [PLUGINS] --------\n");
+        //System.out.println(" \n-------- ASSET LOADER [PLUGINS] --------\n");
         dataFoolder = _dataFoolder;
         ScanPlugins();
     }
@@ -21,7 +21,7 @@ public class Scaner {
         // Создание объекта File для указанной папки
         File pluginFolder = dataFoolder.getParentFile();
 
-        System.out.println(dataFoolder.getAbsolutePath());
+      //  System.out.println(dataFoolder.getAbsolutePath());
 
         // Проверка, является ли указанный путь директорией
         if (!pluginFolder.isDirectory()) return;
@@ -33,7 +33,7 @@ public class Scaner {
 
 
         for (File subfolder : subfolders) {
-            System.out.println(subfolder.getName());
+          //  System.out.println(subfolder.getName());
             PluginScan.Scan(subfolder);
         }
 

@@ -23,7 +23,7 @@ public class RegisterImageController {
 
     public static void AddImage(File file, String relitivePath) {
         if (!file.exists()) {
-            System.out.println("PROBLEM EMPTY FILE IN CONTROLLER REGISTE");
+            //System.out.println("PROBLEM EMPTY FILE IN CONTROLLER REGISTE");
             return;
         }
 

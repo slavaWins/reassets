@@ -24,7 +24,7 @@ public class VanilaParser {
 
             try {
 
-                ChatLog.Write(matFile.getName());
+                ChatLog.Debug(matFile.getName());
                 Reader reader = new FileReader(matFile);
                 Gson gson = new Gson();
                 VnailaItemCoreModel vnailaItemCoreModel = gson.fromJson(reader, VnailaItemCoreModel.class);
@@ -34,7 +34,7 @@ public class VanilaParser {
 
             } catch (IOException e) {
 
-                System.out.println("----- [RENT TABLE] Ошибка загрузки rents-data.json возможно файл повережден");
+                System.out.println("----- [reassets] Ошибка загрузки   возможно файл повережден");
                 e.printStackTrace();
             }
         }

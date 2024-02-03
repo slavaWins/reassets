@@ -30,7 +30,7 @@ public class FileHasedCopy {
             Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
           //  System.out.println("File  " + sourcePath.getFileName() + " copyed.");
         } catch (IOException e) {
-            System.err.println("Error copy " + e.getMessage());
+            System.err.println("Error copy img " + e.getMessage());
         }
     }
 

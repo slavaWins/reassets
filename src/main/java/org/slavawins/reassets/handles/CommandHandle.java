@@ -1,6 +1,6 @@
 package org.slavawins.reassets.handles;
 
-public class CreateModelsTask {
+public class CommandHandle {
 
 
 }

@@ -34,7 +34,7 @@ public class CreateOverideTask {
 
         for (String material : materials) {
 
-            ChatLog.Write("------ MATERIAL RENDER " + material);
+            ChatLog.Debug("------ MATERIAL RENDER " + material);
 
             VanilaOverideFasadeModel vanilaOverideFasadeModel = VanilaOverideFasadeModel.FindMaterial(material);
 
@@ -62,5 +62,12 @@ public class CreateOverideTask {
 
         }
 
+        imgs.clear();
+        materials.clear();
+
+    }
+
+    public static int GetCountEmpty() {
+        return  imgs.size();
     }
 }
