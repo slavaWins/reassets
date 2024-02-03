@@ -2,6 +2,7 @@ package org.slavawins.reassets;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.converters.Scaner;
+import org.slavawins.reassets.http.FolderZipper;
 import org.slavawins.reassets.http.Uploader;
 import org.slavawins.reassets.listener.ComandListener;
 import org.slavawins.reassets.listener.StartListener;
@@ -12,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class Reassets extends JavaPlugin {
 
@@ -41,8 +44,6 @@ public final class Reassets extends JavaPlugin {
         resourcepackGenerator.MappingOverides();
         resourcepackGenerator.IndexingPivots();
         onIndexingTime = (System.currentTimeMillis() - currentTime) / 1000f;
-
-
 
         getServer().getPluginManager().registerEvents(new StartListener(), this);
     }

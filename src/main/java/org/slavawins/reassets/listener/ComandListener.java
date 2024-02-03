@@ -8,10 +8,14 @@ import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
+import org.slavawins.reassets.http.FolderZipper;
 import org.slavawins.reassets.http.Uploader;
 import org.slavawins.reassets.libs.Fastcommand;
+import org.slavawins.reassets.models.ResourcepackGenerator;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ComandListener extends Fastcommand {
 
@@ -69,6 +73,9 @@ public class ComandListener extends Fastcommand {
 
     public void UploadCommand(CommandSender sender, String[] args) {
 
+
+        FolderZipper.Arhivate(ResourcepackGenerator.rootFoolder, ResourcepackGenerator.rootFoolder.getParentFile().getAbsolutePath() + "/resourcepack.zip");
+
         sender.sendMessage(ChatColor.GREEN + " Отправляю файл на сервре");
         try {
             Uploader.send();
@@ -83,6 +90,13 @@ public class ComandListener extends Fastcommand {
     }
 
     public void GenerateCommand(CommandSender sender, String[] args) {
+
+
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm");
+        String formattedDate = "resourcepack_" + dateFormat.format(currentDate) + ".zip";
+        sender.sendMessage(ChatColor.GREEN + " Делаем бэкап ресурспака");
+        FolderZipper.Arhivate(ResourcepackGenerator.rootFoolder, ResourcepackGenerator.rootFoolder.getParentFile().getAbsolutePath() + "/backup/" + formattedDate);
 
         sender.sendMessage(ChatColor.GREEN + " Генерация ресурспака запущена");
         // long currentTime = System.currentTimeMillis();
