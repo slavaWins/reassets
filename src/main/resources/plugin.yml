@@ -1,0 +1,4 @@
+name: reassets
+version: '${project.version}'
+main: org.slavawins.reassets.Reassets
+api-version: '1.20'
