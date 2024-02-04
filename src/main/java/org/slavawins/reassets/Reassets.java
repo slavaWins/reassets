@@ -31,7 +31,13 @@ public final class Reassets extends JavaPlugin {
         dataFolderPlugins = getDataFolder().getParentFile();
 
 
+        if (!myDataFolder.exists()) {
+            myDataFolder.mkdirs();
+            ResourceExtractor.extract(this, "reassets");
+        }
+
         ConfigHelper.Init(getDataFolder());
+
 
         ResourceExtractor.extract(this, "lang");
         Lang.loadLanguageFile(ConfigHelper.GetConfig().getString("lang", "en"));

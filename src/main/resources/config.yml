@@ -22,7 +22,7 @@
 name: "reassets"
 
 debug: false #дебаг для разработчика
-lang: ru #язык
+lang: en #язык
 
 
 resource-pack-send-enabled: false # отправлять игрокам ресурспак

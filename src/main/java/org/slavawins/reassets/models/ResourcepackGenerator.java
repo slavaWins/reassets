@@ -92,7 +92,7 @@ public class ResourcepackGenerator {
     }
 
     private String RenamingImage(String pathLocal) {
-        System.out.println(pathLocal);
+       // System.out.println(pathLocal);
         pathLocal = pathLocal.replace("\\", "/");
         pathLocal = pathLocal.replaceFirst("plugins", "/");
         pathLocal = pathLocal.replaceFirst("/reassets", "/");
@@ -101,12 +101,12 @@ public class ResourcepackGenerator {
         pathLocal = pathLocal.replace("//", "/");
         pathLocal = pathLocal.replace("//", "/");
 
-        pathLocal = pathLocal.replace("//", "/");
+        //pathLocal = pathLocal.replace("//", "/");
 
         if (pathLocal.endsWith("/")) {
             pathLocal = pathLocal.substring(0, pathLocal.length() - 1);
         }
-        System.out.println("====>  RenamingImage   " + pathLocal);
+        //System.out.println("====>  RenamingImage   " + pathLocal);
         return pathLocal;
     }
 

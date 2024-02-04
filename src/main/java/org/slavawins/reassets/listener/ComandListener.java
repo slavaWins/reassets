@@ -5,6 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.slavawins.reassets.ConfigHelper;
+import org.slavawins.reassets.Reassets;
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.UploadResponseContract;
 import org.slavawins.reassets.controllers.CreateOverideTask;
@@ -13,10 +15,12 @@ import org.slavawins.reassets.handles.IndexingHandle;
 import org.slavawins.reassets.handles.ShowItemsHandle;
 import org.slavawins.reassets.http.FolderZipper;
 import org.slavawins.reassets.http.Uploader;
+import org.slavawins.reassets.integration.ResourceExtractor;
 import org.slavawins.reassets.proplugin.Lang;
 import org.slavawins.reassets.proplugin.Fastcommand;
 import org.slavawins.reassets.models.ResourcepackGenerator;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,8 +67,31 @@ public class ComandListener extends Fastcommand {
         com.event = this::ReloadCommand;
         commands.add(com);
 
+        com = new CommandElemet();
+        com.subcommond = "template";
+        com.arguments.add("pluginName");
+        com.descrip = Lang.translaste("cmd.help.template", "Создать шаблон в папке вашего плагин. Будет создан набор для 3д модели, итема и интерфейса.");
+        com.event = this::TemplateCommand;
+        commands.add(com);
+
     }
 
+
+    public void TemplateCommand(CommandSender sender, String[] args) {
+
+
+        File p = new File(Reassets.dataFolderPlugins, args[0]);
+        if (!p.exists()) {
+            sender.sendMessage(Lang.translaste("cmd.template.error", "Нет папки плагина в которую вы хотели поместить шаблон. Папка: ") + args[0]);
+            return;
+        }
+
+        String path = p.getAbsolutePath();
+        ResourceExtractor.extractTo(Reassets.getInstance(), "reassets", path);
+
+        sender.sendMessage(Lang.translaste("cmd.template.ok", "Создан шаблон для асетов. Путь до папки шаблона: ") + path);
+
+    }
 
     public void ListCommand(CommandSender sender, String[] args) {
 
@@ -75,6 +102,7 @@ public class ComandListener extends Fastcommand {
         sender.sendMessage(ChatColor.GREEN + Lang.translaste("list.title", "Список ресов:"));
         String text = "";
         for (ItemImageContract img : RegisterImageController.images) {
+            if (!(img.categoryTyep == CategoryEnum.items || img.categoryTyep == CategoryEnum.models)) continue;
             text += "\n" + img.enumName + " ";
             text += img.material.toUpperCase();
             if (img.modelId >= 0) {

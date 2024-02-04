@@ -39,9 +39,8 @@ public class ConfigHelper {
 
         if (!file.exists()) {
             Reassets.getInstance().saveResource("config.yml", false);
-        } else {
-            yamlConfiguration = YamlConfiguration.loadConfiguration(file);
         }
+        yamlConfiguration = YamlConfiguration.loadConfiguration(file);
     }
 
     public static void Init(File _dataFoolder) {

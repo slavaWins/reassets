@@ -24,10 +24,10 @@ public class BlockBrenchConverter {
             for (Map.Entry<String, String> entry : blockbrenchSaveContract.textures.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-
+/*
                 System.out.println("AddPrefixToTextures: ");
                 System.out.println("----  " + key + " = " + value);
-                System.out.println("----  ==> " + prefixPath + value);
+                System.out.println("----  ==> " + prefixPath + value);*/
                 content = content.replace("\"" + value + "\"", "\"" + prefixPath + value + "\"");
             }
 

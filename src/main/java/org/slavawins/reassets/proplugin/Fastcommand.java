@@ -47,6 +47,19 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
             return completions;
         }
 
+        if (args.length > 1) {
+            for (CommandElemet com : commands) {
+                if (!com.subcommond.equalsIgnoreCase(args[0])) continue;
+                if (com.arguments.size() < args.length - 1) continue;
+                /*
+                System.out.println("--COMP:");
+                System.out.println(args.length);
+                System.out.println(com.arguments.size());
+                */
+                completions.add("<" + com.arguments.get(args.length - 2) + ">");
+                return completions;
+            }
+        }
         return null;
     }
 
@@ -88,7 +101,9 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
             if (com.arguments.size() != args.length - 1) continue;
 
             String[] postArgs = new String[args.length - 1];
-            for (int i = 1; i < args.length; i++) postArgs[i] = args[i];
+            for (int i = 1; i < args.length; i++){
+                postArgs[i-1] = args[i];
+            }
 
             com.event.accept(sender, postArgs);
             return true;

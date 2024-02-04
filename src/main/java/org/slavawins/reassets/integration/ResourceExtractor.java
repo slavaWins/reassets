@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.proplugin.fileutils.JarUtil;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ResourceExtractor {
@@ -18,9 +19,15 @@ public class ResourceExtractor {
     public static void extract(JavaPlugin plugin, String folderName) {
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdirs();
 
+        extractTo(plugin, folderName, plugin.getDataFolder().getAbsolutePath());
+    }
+
+    public static void extractTo(JavaPlugin plugin, String folderName, String to) {
+        if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdirs();
+
         try {
             System.out.println("[" + plugin.getName() + "] extract " + folderName);
-            JarUtil.copyFolderFromJar(plugin, folderName, plugin.getDataFolder(), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
+            JarUtil.copyFolderFromJar(plugin, folderName, new File(to), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
 
         } catch (IOException e) {
             System.out.println(ChatColor.RED + "[" + plugin.getName() + "] ERROR!!! extract " + folderName);

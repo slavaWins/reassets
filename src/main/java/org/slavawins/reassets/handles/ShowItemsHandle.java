@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.proplugin.Lang;
@@ -20,6 +21,7 @@ public class ShowItemsHandle {
 
         for (ItemImageContract img : RegisterImageController.images) {
 
+            if(!(img.categoryTyep== CategoryEnum.items || img.categoryTyep== CategoryEnum.models))continue;
             msg = "";
             msg += "\n" + img.enumName + " ";
             msg += img.material.toUpperCase();
