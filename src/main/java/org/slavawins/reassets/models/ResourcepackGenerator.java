@@ -7,6 +7,7 @@ import org.slavawins.reassets.contracts.OveriderModelMCContrcat;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.converters.VanilaParser;
+import org.slavawins.reassets.integration.ResourceExtractor;
 import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.repositories.RawImagesRepository;
 
@@ -27,6 +28,10 @@ public class ResourcepackGenerator {
     public void CreateStructureResoursePack() {
 
         String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack";
+
+
+        ResourceExtractor.extract(Reassets.getInstance(), "resourcepack");
+
         rootFoolder = new File(resourcepackPath);
 
         //  System.out.println(resourcepackPath);

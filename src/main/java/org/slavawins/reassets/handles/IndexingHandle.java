@@ -1,6 +1,7 @@
 package org.slavawins.reassets.handles;
 
 import org.slavawins.reassets.Reassets;
+import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.converters.Scaner;
@@ -14,6 +15,7 @@ public class IndexingHandle {
 
     public static void Clear() {
 
+        RegisterImageController.images.clear();
         CreateOverideTask.Clear();
         VanilaOverideFasadeModel.list.clear();
     }

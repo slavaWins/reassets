@@ -20,7 +20,7 @@ public class ResourceExtractor {
 
         try {
             System.out.println("[" + plugin.getName() + "] extract " + folderName);
-            JarUtil.copyFolderFromJar(plugin, folderName, plugin.getDataFolder(), JarUtil.CopyOption.REPLACE_IF_EXIST);
+            JarUtil.copyFolderFromJar(plugin, folderName, plugin.getDataFolder(), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
 
         } catch (IOException e) {
             System.out.println(ChatColor.RED + "[" + plugin.getName() + "] ERROR!!! extract " + folderName);

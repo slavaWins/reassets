@@ -16,11 +16,11 @@ public final class Reassets extends JavaPlugin {
     public static File dataFolderPlugins;
     public static File myDataFolder;
 
-    public static Plugin getInstance() {
+    public static JavaPlugin getInstance() {
         return instance;
     }
 
-    private static Plugin instance;
+    private static JavaPlugin instance;
 
     @Override
     public void onEnable() {
