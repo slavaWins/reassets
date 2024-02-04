@@ -1,6 +1,7 @@
 package org.slavawins.reassets.handles;
 
 import org.slavawins.reassets.Reassets;
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.controllers.CreateOverideTask;
@@ -28,14 +29,18 @@ public class IndexingHandle {
         resourcepackGenerator.CreateStructureResoursePack();
 
         resourcepackGenerator
-                .CopyRawImagesToResorsepack( RawImagesRepository.imagesItems, true);
-        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.testureList, false);
+                .CopyRawImagesToResorsepack( RawImagesRepository.imagesItems, CategoryEnum.items);
+        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.testureList, CategoryEnum.textures);
+        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.uiList, CategoryEnum.ui);
         resourcepackGenerator.Copy3DModelsToResorsepack( RawImagesRepository.models3dList);
 
+        RawImagesRepository.uiList.clear();
         RawImagesRepository.imagesItems.clear();
         RawImagesRepository.testureList.clear();
         RawImagesRepository.models3dList.clear();
 
+        FontMappingHandle.Indexing();
+        FontMappingHandle.Addder();
         //resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.models3dList);
         resourcepackGenerator.MappingOverides();
         resourcepackGenerator.IndexingPivots();

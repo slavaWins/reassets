@@ -17,7 +17,9 @@ public class PluginScan {
 
             if (!categorty.isDirectory()) continue;
 
-            if (categorty.getName().equalsIgnoreCase("models")) {
+            if (categorty.getName().equalsIgnoreCase("minecraft")) {
+                if (!(new File(categorty, "models").exists() && new File(categorty, "textures").exists())) continue;
+
                 for (File img : Mapper.MappingImages(categorty)) {
                     if (img.getName().endsWith(".png")) RawImagesRepository.testureList.add(img);
                     if (img.getName().endsWith(".json")) RawImagesRepository.models3dList.add(img);
@@ -31,6 +33,14 @@ public class PluginScan {
                     RawImagesRepository.add(img);
                 }
 
+            }
+
+
+            if (categorty.getName().equalsIgnoreCase("ui")) {
+                for (File img : Mapper.MappingImages(categorty)) {
+                    if (img.getName().indexOf(".png") < 0) continue;
+                    RawImagesRepository.uiList.add(img);
+                }
             }
 
 

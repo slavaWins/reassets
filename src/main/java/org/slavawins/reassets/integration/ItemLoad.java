@@ -20,11 +20,12 @@ public class ItemLoad {
 
     public static ItemStack getByPath(String path) {
 
-        path = path.replace(".png", "");
+        path = path.replace(".png", "").replace(".json", "");
 
         for (ItemImageContract img : RegisterImageController.images) {
 
-            if (img.modelNameForOveride.replace(".png", "").indexOf(path) <= -1 && !img.enumName.equalsIgnoreCase(path))
+            //не очень эффективно надо где-то закэшировать реплейснутый вариант чтоб искать быстрее
+            if (img.modelNameForOveride.replace(".png", "").replace(".json", "").indexOf(path) <= -1 && !img.enumName.equalsIgnoreCase(path))
                 continue;
 
             ItemStack itemStack = new ItemStack(Material.BONE, 1);

@@ -22,7 +22,7 @@ public class RegisterImageController {
 
     public static List<ItemImageContract> images = new ArrayList<>();
 
-    public static void AddImage(File file, String relitivePath, CategoryEnum categoryTyep) {
+    public static void AddAsItem(File file, String relitivePath, CategoryEnum categoryTyep) {
         if (!file.exists()) {
             //System.out.println("PROBLEM EMPTY FILE IN CONTROLLER REGISTE");
             return;
@@ -37,6 +37,9 @@ public class RegisterImageController {
         itemImageContract.categoryTyep = categoryTyep;
         itemImageContract.modelNameForOveride = "generated" + relitivePath;
 
+        if (itemImageContract.categoryTyep == CategoryEnum.ui) {
+            //itemImageContract.modelNameForOveride = "reassets_ui" + relitivePath;
+        }
 
         // System.out.println("\n ----- AddImage");
         // itemImageContract.sout();

@@ -6,7 +6,6 @@ import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.OveriderModelMCContrcat;
-import org.slavawins.reassets.contracts.blockbrench.BlockbrenchSaveContract;
 import org.slavawins.reassets.contracts.vanila.VanilaAtlasContract;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
@@ -21,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ResourcepackGenerator {
 
@@ -108,11 +106,11 @@ public class ResourcepackGenerator {
         if (pathLocal.endsWith("/")) {
             pathLocal = pathLocal.substring(0, pathLocal.length() - 1);
         }
-        System.out.println("====>  CopyRawImagesToResorsepack   " + pathLocal);
+        System.out.println("====>  RenamingImage   " + pathLocal);
         return pathLocal;
     }
 
-    public void CopyRawImagesToResorsepack(List<File> imagesItems, boolean isRegistredAsModelItem) {
+    public void CopyRawImagesToResorsepack(List<File> imagesItems, CategoryEnum categoryEnum) {
         String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack/assets/minecraft/textures/generated";
 
 
@@ -122,6 +120,9 @@ public class ResourcepackGenerator {
 
             pathLocal = RenamingImage(pathLocal);     //plugins\trashitem\reassets\items\gun.png  ====>  /trashitem/items/gun.png
 
+            if (categoryEnum == CategoryEnum.textures) {
+                pathLocal = pathLocal.replace("minecraft/textures/", "textures/");
+            }
 
             Path destinationPath = Path.of(resourcepackPath, pathLocal);
 
@@ -131,7 +132,14 @@ public class ResourcepackGenerator {
 
             File imgNew = new File(destinationPath.toAbsolutePath().toString());
 
-            if (isRegistredAsModelItem) RegisterImageController.AddImage(imgNew, pathLocal, CategoryEnum.items);
+            if (categoryEnum == CategoryEnum.items) {
+                RegisterImageController.AddAsItem(imgNew, pathLocal, CategoryEnum.items);
+            }
+
+            if (categoryEnum == CategoryEnum.ui) {
+                RegisterImageController.AddAsItem(imgNew, pathLocal, CategoryEnum.ui);
+            }
+
         }
         RawImagesRepository.imagesItems.clear();
 
@@ -148,9 +156,9 @@ public class ResourcepackGenerator {
             String pathLocal = img.getPath();
 
 
+            pathLocal = pathLocal.replace("\\minecraft\\", "/");
             pathLocal = RenamingImage(pathLocal);     //plugins\trashitem\reassets\items\gun.png  ====>  /trashitem/items/gun.png
 
-            System.out.println("--- Copy3DModelsToResorsepack -> " + pathLocal);
 
             Path destinationPath = Path.of(resourcepackPath, pathLocal);
 
@@ -162,12 +170,14 @@ public class ResourcepackGenerator {
 
             //BlockbrenchSaveContract blockbrenchSaveContract = BlockBrenchConverter.Parse(imgNew);
             String pathToTextures = "generated" + new File(pathLocal).getParent().toString() + '/';
-            pathToTextures  = pathToTextures.replace("\\","/");
+            pathToTextures = pathToTextures.replace("\\", "/");
+            pathToTextures = pathToTextures.replace("/models/", "/textures/");
+
 
             BlockBrenchConverter.AddPrefixToTextures(imgNew, pathToTextures);
 
 
-            RegisterImageController.AddImage(imgNew, pathLocal, CategoryEnum.models);
+            RegisterImageController.AddAsItem(imgNew, pathLocal, CategoryEnum.models);
         }
 
         OpLog.Debug("Files coped in respack!");
@@ -187,7 +197,6 @@ public class ResourcepackGenerator {
         List<VanilaOverideFasadeModel> vnailaItemCoreModels = VanilaParser.Parse(materialItems);
 
         for (VanilaOverideFasadeModel model : vnailaItemCoreModels) {
-
             OpLog.Debug(model.file.getName() + " max: " + model.maxId);
         }
     }
@@ -195,6 +204,8 @@ public class ResourcepackGenerator {
 
     public void IndexingPivots() {
         for (ItemImageContract img : RegisterImageController.images) {
+
+            if(img.categoryTyep==CategoryEnum.ui)continue;
 
             VanilaOverideFasadeModel.OverideFindResponse response = VanilaOverideFasadeModel.GetModelByRealitiveTexturePath(img.modelNameForOveride.replace(".png", "").replace(".json", ""));
 

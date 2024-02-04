@@ -3,6 +3,7 @@ package org.slavawins.reassets;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.handles.IndexingHandle;
+import org.slavawins.reassets.helpers.UnicodeHelper;
 import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.integration.ResourceExtractor;
 import org.slavawins.reassets.proplugin.Lang;
