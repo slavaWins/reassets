@@ -97,7 +97,7 @@ public class ResourcepackGenerator {
         for (File img : fileList) {
 
             String pathLocal = img.getPath(); // будет /xmob/admin_tool/npc_cloner.png
-            System.out.println(pathLocal);
+           // System.out.println(pathLocal);
             pathLocal = pathLocal.replace("\\", "/");
             pathLocal = pathLocal.replaceFirst("plugins", "/");
             pathLocal = pathLocal.replaceFirst("/reassets", "/");
@@ -106,6 +106,11 @@ public class ResourcepackGenerator {
             pathLocal = pathLocal.replace("//", "/");
             pathLocal = pathLocal.replace("//", "/");
 
+            pathLocal = pathLocal.replace("//", "/");
+
+            if (pathLocal.endsWith("/")) {
+                pathLocal = pathLocal.substring(0, pathLocal.length() - 1);
+            }
             //System.out.println("====>  CopyRawImagesToResorsepack   " + pathLocal);
             //Path sourcePath = img.toPath();
 

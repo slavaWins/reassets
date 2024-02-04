@@ -18,10 +18,13 @@ public class PluginScan {
             if (!categorty.isDirectory()) continue;
 
             if (categorty.getName().equalsIgnoreCase("items")) {
+
                 for (File img : Mapper.MappingImages(categorty)) {
                     if (img.getName().indexOf(".png") < 0) continue;
+
                     RawImagesRepository.add(img);
                 }
+
             }
 
 
