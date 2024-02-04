@@ -6,21 +6,26 @@ import java.io.File;
 
 public class PluginScan {
 
-    public static void Scan(File subfolder) {
+    public static void ScanPluginFoolder(File pluginFoolder) {
 
 
-        File assetsFoolder = new File(subfolder.getPath() + "/reassets/");
-        if (!assetsFoolder.exists()) return;
+        File reassetsFoolder = new File(pluginFoolder.getPath() + "/reassets/");
+        if (!reassetsFoolder.exists()) return;
 
 
-        for (File img : Mapper.MappingImages(assetsFoolder)) {
+        for (File categorty : reassetsFoolder.listFiles()) {
 
-            if (img.getName().indexOf(".zip") > 0) continue;
-            if (img.getName().indexOf(".png") < 0) continue;
+            if (!categorty.isDirectory()) continue;
 
-            RawImagesRepository.add(img);
+            if (categorty.getName().equalsIgnoreCase("items")) {
+                for (File img : Mapper.MappingImages(categorty)) {
+                    if (img.getName().indexOf(".png") < 0) continue;
+                    RawImagesRepository.add(img);
+                }
+            }
+
+
         }
-
 
     }
 }

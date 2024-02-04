@@ -34,7 +34,7 @@ public class Scaner {
 
         for (File subfolder : subfolders) {
           //  System.out.println(subfolder.getName());
-            PluginScan.Scan(subfolder);
+            PluginScan.ScanPluginFoolder(subfolder);
         }
 
     }

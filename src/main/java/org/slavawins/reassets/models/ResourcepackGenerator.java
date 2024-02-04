@@ -3,6 +3,7 @@ package org.slavawins.reassets.models;
 import com.google.gson.Gson;
 import org.slavawins.reassets.FileHasedCopy;
 import org.slavawins.reassets.Reassets;
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.OveriderModelMCContrcat;
 import org.slavawins.reassets.contracts.vanila.VanilaAtlasContract;
@@ -58,24 +59,24 @@ public class ResourcepackGenerator {
     }
 
     public void AtllasUpdate() {
-       // System.out.println("-------------AtllasUpdate");
+        // System.out.println("-------------AtllasUpdate");
         try {
             File file = new File(rootFoolder, "/assets/minecraft/atlases/blocks.json");
 
-            if(!file.exists()){
+            if (!file.exists()) {
                 ResourceExtractor.extract(Reassets.getInstance(), "resourcepack/assets/minecraft/atlases");
                 return;
             }
             //..Reader reader = new FileReader(file);
             String content = Files.readString(file.toPath());
 
-            System.out.println(content);
+            //  System.out.println(content);
 
-            if(content.indexOf("\"generated/\"")>0)return;
-         //   System.out.println("-------------AtllasUpdate neeed");
+            if (content.indexOf("\"generated/\"") > 0) return;
+            //   System.out.println("-------------AtllasUpdate neeed");
 
             Gson gson = new Gson();
-            VanilaAtlasContract vnailaItemCoreModel =    gson.fromJson(content, VanilaAtlasContract.class);
+            VanilaAtlasContract vnailaItemCoreModel = gson.fromJson(content, VanilaAtlasContract.class);
 
             vnailaItemCoreModel.sources.add(new VanilaAtlasContract.SourcesVanilaAtlasContract());
 
@@ -95,14 +96,21 @@ public class ResourcepackGenerator {
 
         for (File img : fileList) {
 
-
             String pathLocal = img.getPath(); // будет /xmob/admin_tool/npc_cloner.png
+            System.out.println(pathLocal);
             pathLocal = pathLocal.replace("\\", "/");
-            pathLocal = pathLocal.replaceFirst("plugins", "");
-            pathLocal = pathLocal.replaceFirst("/reassets", "");
+            pathLocal = pathLocal.replaceFirst("plugins", "/");
+            pathLocal = pathLocal.replaceFirst("/reassets", "/");
+            pathLocal = "/" + pathLocal.replaceFirst("/items/", "/") + "/";
 
+            pathLocal = pathLocal.replace("//", "/");
+            pathLocal = pathLocal.replace("//", "/");
 
+            //System.out.println("====>  CopyRawImagesToResorsepack   " + pathLocal);
             //Path sourcePath = img.toPath();
+
+
+
             Path sourcePath = Path.of(img.getAbsolutePath());
             Path destinationPath = Path.of(resourcepackPath, pathLocal);
 
