@@ -1,0 +1,52 @@
+package org.slavawins.reassets;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ConfigHelper {
+
+    private static File file;
+    private static YamlConfiguration yamlConfiguration;
+
+    public static void DefYmlConfi() {
+        yamlConfiguration.set("debug", true);
+
+    }
+
+    public static boolean IsDebug() {
+        return yamlConfiguration.getBoolean("debug", true);
+    }
+
+    public static void Save() {
+        try {
+            yamlConfiguration.save(file);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static YamlConfiguration GetConfig() {
+        return yamlConfiguration;
+    }
+
+    public static void Init(File dataFoolder) {
+        if (!dataFoolder.exists()) dataFoolder.mkdirs();
+
+
+        file = new File(dataFoolder, "config.yml");
+
+
+        if (!file.exists()) {
+            Reassets.getInstance().saveResource("config.yml", false);
+        } else {
+            yamlConfiguration = YamlConfiguration.loadConfiguration(file);
+        }
+
+
+    }
+
+
+}
