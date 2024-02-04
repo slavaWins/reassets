@@ -11,6 +11,7 @@ public class ItemImageContract {
     public String material;
     public int modelId = -1;
     public String modelNameForOveride;
+    public CategoryEnum categoryTyep;
 
     public void sout() {
         if (material == null) {

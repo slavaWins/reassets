@@ -26,7 +26,17 @@ public class IndexingHandle {
         Scaner.Init(Reassets.myDataFolder);
         ResourcepackGenerator resourcepackGenerator = new ResourcepackGenerator();
         resourcepackGenerator.CreateStructureResoursePack();
-        resourcepackGenerator.CopyRawImagesToResorsepack(RawImagesRepository.fileList);
+
+        resourcepackGenerator
+                .CopyRawImagesToResorsepack( RawImagesRepository.imagesItems, true);
+        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.testureList, false);
+        resourcepackGenerator.Copy3DModelsToResorsepack( RawImagesRepository.models3dList);
+
+        RawImagesRepository.imagesItems.clear();
+        RawImagesRepository.testureList.clear();
+        RawImagesRepository.models3dList.clear();
+
+        //resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.models3dList);
         resourcepackGenerator.MappingOverides();
         resourcepackGenerator.IndexingPivots();
 

@@ -31,7 +31,7 @@ public class Uploader {
         // Создание потока для записи данных в соединение
         // OutputStream outputStream = connection.getOutputStream();
 
-        System.out.println("----------send x3");
+       // System.out.println("----------send x3");
         // Чтение файла и запись его в поток
         File file = new File(Reassets.myDataFolder.getPath() + "/resourcepack.zip");
 
@@ -48,7 +48,7 @@ public class Uploader {
             return UploadResponseContract.Error("Not file rp in " + file.getAbsolutePath());
         }
 
-        System.out.println("----------send x4");
+        //System.out.println("----------send x4");
         FileInputStream fileInputStream = new FileInputStream(file);
 
         byte[] buffer = new byte[1024];
@@ -57,7 +57,7 @@ public class Uploader {
             outputStream.write(buffer, 0, bytesRead);
         }
 
-        System.out.println("----------send x5");
+        //System.out.println("----------send x5");
         // Закрытие потока и соединения
         fileInputStream.close();
         outputStream.close();
@@ -65,7 +65,7 @@ public class Uploader {
         // Получение ответного кода от сервера
         int responseCode = connection.getResponseCode();
 
-        System.out.println("----------send x5");
+        //System.out.println("----------send x5");
         // Проверка успешности запроса
         if (responseCode == HttpURLConnection.HTTP_OK) {
             // Чтение ответа сервера

@@ -1,5 +1,6 @@
 package org.slavawins.reassets.controllers;
 
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
@@ -49,14 +50,18 @@ public class CreateOverideTask {
                 VnailaItemCoreModel._OverrideVanila over = new VnailaItemCoreModel._OverrideVanila();
                 over.predicate = new VnailaItemCoreModel.Predicate();
                 over.predicate.custom_model_data = vanilaOverideFasadeModel.maxId;
-                over.model = img.modelNameForOveride.replace(".png", "");
+                over.model = img.modelNameForOveride.replace(".png", "").replace(".json", "");
 
                 vanilaOverideFasadeModel.model.overrides.add(over);
 
                 VanilaOverideFasadeModel.Write(vanilaOverideFasadeModel.file, vanilaOverideFasadeModel.model);
 
 
-                VanilaOverideFasadeModel.WriteSingleCustomModel(img);
+                if(img.categoryTyep== CategoryEnum.items) {
+                    VanilaOverideFasadeModel.WriteSingleCustomModel(img);
+                }else {
+                    //VanilaOverideFasadeModel.WriteSingleCustomModel(img);
+                }
 
             }
 

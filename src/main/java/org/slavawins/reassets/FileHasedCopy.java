@@ -7,11 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 public final class FileHasedCopy {
 
-    public static void copyImages(Path sourcePath, Path destinationPath) {
+    public static void copyFile(Path sourcePath, Path destinationPath) {
 
 
         File file = new File(destinationPath.toAbsolutePath().toString());

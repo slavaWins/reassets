@@ -1,5 +1,6 @@
 package org.slavawins.reassets.controllers;
 
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class RegisterImageController {
 
     public static List<ItemImageContract> images = new ArrayList<>();
 
-    public static void AddImage(File file, String relitivePath) {
+    public static void AddImage(File file, String relitivePath, CategoryEnum categoryTyep) {
         if (!file.exists()) {
             //System.out.println("PROBLEM EMPTY FILE IN CONTROLLER REGISTE");
             return;
@@ -33,6 +34,7 @@ public class RegisterImageController {
         ItemImageContract itemImageContract = new ItemImageContract();
         itemImageContract.enumName = enumName;
         itemImageContract.file = file;
+        itemImageContract.categoryTyep = categoryTyep;
         itemImageContract.modelNameForOveride = "generated" + relitivePath;
 
 

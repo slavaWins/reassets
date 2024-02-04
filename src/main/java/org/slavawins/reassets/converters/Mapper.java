@@ -24,7 +24,7 @@ public class Mapper {
                 for (File file : files) {
                     if (file.isDirectory()) {
                         traverseDirectory(file, fileList);
-                    } else if (file.getName().toLowerCase().endsWith(".png")) {
+                    } else if (file.getName().toLowerCase().endsWith(".png") || file.getName().toLowerCase().endsWith(".json")) {
                         fileList.add(file);
                     }
                 }

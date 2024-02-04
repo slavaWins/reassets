@@ -6,11 +6,12 @@ import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.OveriderModelMCContrcat;
+import org.slavawins.reassets.contracts.blockbrench.BlockbrenchSaveContract;
 import org.slavawins.reassets.contracts.vanila.VanilaAtlasContract;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
+import org.slavawins.reassets.converters.BlockBrenchConverter;
 import org.slavawins.reassets.converters.VanilaParser;
-import org.slavawins.reassets.helpers.SafleJsonPaste;
 import org.slavawins.reassets.integration.ResourceExtractor;
 import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.repositories.RawImagesRepository;
@@ -20,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ResourcepackGenerator {
 
@@ -91,44 +93,83 @@ public class ResourcepackGenerator {
         }
     }
 
-    public void CopyRawImagesToResorsepack(List<File> fileList) {
+    private String RenamingImage(String pathLocal) {
+        System.out.println(pathLocal);
+        pathLocal = pathLocal.replace("\\", "/");
+        pathLocal = pathLocal.replaceFirst("plugins", "/");
+        pathLocal = pathLocal.replaceFirst("/reassets", "/");
+
+
+        pathLocal = pathLocal.replace("//", "/");
+        pathLocal = pathLocal.replace("//", "/");
+
+        pathLocal = pathLocal.replace("//", "/");
+
+        if (pathLocal.endsWith("/")) {
+            pathLocal = pathLocal.substring(0, pathLocal.length() - 1);
+        }
+        System.out.println("====>  CopyRawImagesToResorsepack   " + pathLocal);
+        return pathLocal;
+    }
+
+    public void CopyRawImagesToResorsepack(List<File> imagesItems, boolean isRegistredAsModelItem) {
         String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack/assets/minecraft/textures/generated";
 
-        for (File img : fileList) {
 
-            String pathLocal = img.getPath(); // будет /xmob/admin_tool/npc_cloner.png
-           // System.out.println(pathLocal);
-            pathLocal = pathLocal.replace("\\", "/");
-            pathLocal = pathLocal.replaceFirst("plugins", "/");
-            pathLocal = pathLocal.replaceFirst("/reassets", "/");
-            pathLocal = "/" + pathLocal.replaceFirst("/items/", "/") + "/";
+        for (File img : imagesItems) {
 
-            pathLocal = pathLocal.replace("//", "/");
-            pathLocal = pathLocal.replace("//", "/");
+            String pathLocal = img.getPath();
 
-            pathLocal = pathLocal.replace("//", "/");
-
-            if (pathLocal.endsWith("/")) {
-                pathLocal = pathLocal.substring(0, pathLocal.length() - 1);
-            }
-            //System.out.println("====>  CopyRawImagesToResorsepack   " + pathLocal);
-            //Path sourcePath = img.toPath();
+            pathLocal = RenamingImage(pathLocal);     //plugins\trashitem\reassets\items\gun.png  ====>  /trashitem/items/gun.png
 
 
-
-            Path sourcePath = Path.of(img.getAbsolutePath());
             Path destinationPath = Path.of(resourcepackPath, pathLocal);
 
 
-            //System.out.println(sourcePath);
-            //System.out.println("---> " + destinationPath);
-            FileHasedCopy.copyImages(sourcePath, destinationPath);
+            //Path sourcePath = Path.of(img.getAbsolutePath());
+            FileHasedCopy.copyFile(img.toPath(), destinationPath);
 
             File imgNew = new File(destinationPath.toAbsolutePath().toString());
 
-            RegisterImageController.AddImage(imgNew, pathLocal);
+            if (isRegistredAsModelItem) RegisterImageController.AddImage(imgNew, pathLocal, CategoryEnum.items);
         }
-        RawImagesRepository.fileList.clear();
+        RawImagesRepository.imagesItems.clear();
+
+        OpLog.Debug("Files coped in respack!");
+    }
+
+    public void Copy3DModelsToResorsepack(List<File> imagesItems) {
+        String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack/assets/minecraft/models/generated";
+
+        System.out.println("--- Copy3DModelsToResorsepack ");
+
+        for (File img : imagesItems) {
+
+            String pathLocal = img.getPath();
+
+
+            pathLocal = RenamingImage(pathLocal);     //plugins\trashitem\reassets\items\gun.png  ====>  /trashitem/items/gun.png
+
+            System.out.println("--- Copy3DModelsToResorsepack -> " + pathLocal);
+
+            Path destinationPath = Path.of(resourcepackPath, pathLocal);
+
+
+            FileHasedCopy.copyFile(img.toPath(), destinationPath);
+
+
+            File imgNew = new File(destinationPath.toAbsolutePath().toString());
+
+            //BlockbrenchSaveContract blockbrenchSaveContract = BlockBrenchConverter.Parse(imgNew);
+            String pathToTextures = "generated" + new File(pathLocal).getParent().toString() + '/';
+            pathToTextures  = pathToTextures.replace("\\","/");
+
+            BlockBrenchConverter.AddPrefixToTextures(imgNew, pathToTextures);
+
+
+            RegisterImageController.AddImage(imgNew, pathLocal, CategoryEnum.models);
+        }
+
         OpLog.Debug("Files coped in respack!");
     }
 

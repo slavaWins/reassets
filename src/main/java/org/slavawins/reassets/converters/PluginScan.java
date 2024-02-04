@@ -17,11 +17,17 @@ public class PluginScan {
 
             if (!categorty.isDirectory()) continue;
 
+            if (categorty.getName().equalsIgnoreCase("models")) {
+                for (File img : Mapper.MappingImages(categorty)) {
+                    if (img.getName().endsWith(".png")) RawImagesRepository.testureList.add(img);
+                    if (img.getName().endsWith(".json")) RawImagesRepository.models3dList.add(img);
+                }
+            }
+
             if (categorty.getName().equalsIgnoreCase("items")) {
 
                 for (File img : Mapper.MappingImages(categorty)) {
                     if (img.getName().indexOf(".png") < 0) continue;
-
                     RawImagesRepository.add(img);
                 }
 
