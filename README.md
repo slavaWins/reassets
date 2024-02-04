@@ -16,14 +16,8 @@ Bukkit плагин для ресурсов
 
 В папке plugins\reassets появится папка **resourcepack** это будет ресурспаком. Можете заменить содержимое своим
 ресурспаком.
+ 
 
-```bash
-# Копируем
-$ git  https://github.com
-
-# Депенды 
-
-```
 
 ## Использование
 
@@ -32,10 +26,10 @@ $ git  https://github.com
 Внутри нужно создать папку plugins\reassets
 
 И закинуть в неё картинки итемов
-<BR> plugins/reassets/test.png
-<BR> plugins/reassets/other_item.png
-<BR> plugins/reassets/other_item_eat.png
-<BR> plugins/reassets/other_item_sword.png
+<BR> plugins/reassets/items/test.png
+<BR> plugins/reassets/items/other_item.png
+<BR> plugins/reassets/items/other_item_eat.png
+<BR> plugins/reassets/items/other_item_sword.png
 
 На сервере введите команду
 > /reassets generated
