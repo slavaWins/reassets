@@ -196,7 +196,7 @@ public class ResourcepackGenerator {
     public void IndexingPivots() {
         for (ItemImageContract img : RegisterImageController.images) {
 
-            VanilaOverideFasadeModel.OverideFindResponse response = VanilaOverideFasadeModel.GetModelByRealitiveTexturePath(img.modelNameForOveride.replace(".png", ""));
+            VanilaOverideFasadeModel.OverideFindResponse response = VanilaOverideFasadeModel.GetModelByRealitiveTexturePath(img.modelNameForOveride.replace(".png", "").replace(".json", ""));
 
             if (response != null) {
 
