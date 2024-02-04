@@ -38,7 +38,7 @@ public class CreateOverideTask {
 
             VanilaOverideFasadeModel vanilaOverideFasadeModel = VanilaOverideFasadeModel.FindMaterial(material);
 
-            if(vanilaOverideFasadeModel==null){
+            if (vanilaOverideFasadeModel == null) {
                 vanilaOverideFasadeModel = VanilaOverideFasadeModel.CreateItem(material);
             }
 
@@ -47,9 +47,9 @@ public class CreateOverideTask {
                 vanilaOverideFasadeModel.maxId++;
 
                 VnailaItemCoreModel._OverrideVanila over = new VnailaItemCoreModel._OverrideVanila();
-                over.predicate=new VnailaItemCoreModel.Predicate();
+                over.predicate = new VnailaItemCoreModel.Predicate();
                 over.predicate.custom_model_data = vanilaOverideFasadeModel.maxId;
-                over.model = img.modelNameForOveride.replace(".png","");
+                over.model = img.modelNameForOveride.replace(".png", "");
 
                 vanilaOverideFasadeModel.model.overrides.add(over);
 
@@ -62,12 +62,17 @@ public class CreateOverideTask {
 
         }
 
-        imgs.clear();
-        materials.clear();
+        Clear();
 
     }
 
     public static int GetCountEmpty() {
-        return  imgs.size();
+        return imgs.size();
+    }
+
+
+    public static void Clear() {
+        imgs.clear();
+        materials.clear();
     }
 }

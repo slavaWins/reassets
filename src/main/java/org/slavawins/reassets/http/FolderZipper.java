@@ -19,6 +19,9 @@ public class FolderZipper {
             if (!zipFile.getParentFile().exists()) {
                 zipFile.getParentFile().mkdirs();
             }
+            if(zipFile.exists()){
+                zipFile.delete();
+            }
 
             // Создание объекта ZipOutputStream для записи в ZIP-архив
             ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipFile));

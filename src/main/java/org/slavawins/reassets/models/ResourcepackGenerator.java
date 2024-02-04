@@ -106,7 +106,7 @@ public class ResourcepackGenerator {
                 img.modelId = response.overide.predicate.custom_model_data;
                 img.material = response.fasadeModel.material;
 
-                img.sout();
+                //img.sout();
 
                 continue;
             }

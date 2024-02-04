@@ -13,7 +13,7 @@ import java.util.function.BiConsumer;
 
 public class Fastcommand implements CommandExecutor, TabCompleter {
 
-
+    public boolean onlyOp = true;
     private final String rootCommand;
     public List<CommandElemet> commands = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.isOp()) return false;
+        if (!sender.isOp() && onlyOp) return false;
 
 
         if (!label.equalsIgnoreCase(rootCommand)) return false;

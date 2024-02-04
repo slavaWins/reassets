@@ -17,7 +17,7 @@ public class PluginScan {
 
         for (File img : Mapper.MappingImages(assetsFoolder)) {
 
-            if (!img.getName().contains(".zip")) continue;
+            if (img.getName().indexOf(".zip") > 0) continue;
 
             RawImagesRepository.add(img);
         }
