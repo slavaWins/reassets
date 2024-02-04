@@ -9,7 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-public class FileHasedCopy {
+public final class FileHasedCopy {
 
     public static void copyImages(Path sourcePath, Path destinationPath) {
 

@@ -13,6 +13,7 @@ import org.slavawins.reassets.handles.IndexingHandle;
 import org.slavawins.reassets.handles.ShowItemsHandle;
 import org.slavawins.reassets.http.FolderZipper;
 import org.slavawins.reassets.http.Uploader;
+import org.slavawins.reassets.lang.LangHelper;
 import org.slavawins.reassets.libs.Fastcommand;
 import org.slavawins.reassets.models.ResourcepackGenerator;
 
@@ -30,29 +31,36 @@ public class ComandListener extends Fastcommand {
 
         CommandElemet com = new CommandElemet();
         com.subcommond = "generate";
-        com.descrip = "Собрать ресруспак";
+        com.descrip = LangHelper.translaste("cmd.help.generate", "Собрать ресруспак");
         com.event = this::GenerateCommand;
         commands.add(com);
 
 
         com = new CommandElemet();
         com.subcommond = "status";
-        com.descrip = "Статус ресурспака";
+        com.descrip = LangHelper.translaste("cmd.help.status", "Статус ресурспака");
         com.event = this::StatusCommand;
         commands.add(com);
 
 
         com = new CommandElemet();
         com.subcommond = "list";
-        com.descrip = "Вывести список итемов";
+        com.descrip = LangHelper.translaste("cmd.help.list", "Вывести список итемов");
         com.event = this::ListCommand;
         commands.add(com);
 
 
         com = new CommandElemet();
         com.subcommond = "upload";
-        com.descrip = "Загрузить ресурспак на сервер и раздать игрокам";
+        com.descrip = LangHelper.translaste("cmd.help.upload", "Загрузить ресурспак на сервер и раздать игрокам");
         com.event = this::UploadCommand;
+        commands.add(com);
+
+
+        com = new CommandElemet();
+        com.subcommond = "reload";
+        com.descrip = LangHelper.translaste("cmd.help.reload", "Перезагрузить конфиг");
+        com.event = this::ReloadCommand;
         commands.add(com);
 
     }
@@ -61,19 +69,18 @@ public class ComandListener extends Fastcommand {
     public void ListCommand(CommandSender sender, String[] args) {
 
         if (sender instanceof Player) {
-
             ShowItemsHandle.ShowList((Player) sender);
             return;
         }
-        sender.sendMessage(ChatColor.GREEN + " Список ресов:");
+        sender.sendMessage(ChatColor.GREEN + LangHelper.translaste("list.title", "Список ресов:"));
         String text = "";
         for (ItemImageContract img : RegisterImageController.images) {
-            text += "\n" + img.modelNameForOveride + " ";
+            text += "\n" + img.enumName + " ";
             text += img.material.toUpperCase();
             if (img.modelId >= 0) {
                 text += "#" + img.modelId;
             } else {
-                text += ChatColor.DARK_RED + " не добавлена в пак";
+                text += ChatColor.DARK_RED + LangHelper.translaste("list.not-added", "не добавлена в пак");
             }
         }
         sender.sendMessage(text);
@@ -84,14 +91,14 @@ public class ComandListener extends Fastcommand {
     public void ReloadCommand(CommandSender sender, String[] args) {
         ConfigHelper.Reload();
 
-        sender.sendMessage(ChatColor.GREEN + " CONFIG RELOADED");
+        sender.sendMessage(ChatColor.GREEN + LangHelper.translaste("reloaded", "Конфиг перезагружен"));
     }
 
     public void UploadCommand(CommandSender sender, String[] args) {
 
 
         if (!ConfigHelper.GetConfig().getBoolean("upload-enabled", false)) {
-            sender.sendMessage(ChatColor.RED + " upload-enabled: false. Включите в конфиге отправку!");
+            sender.sendMessage(ChatColor.RED + LangHelper.translaste("info.upload-enabled", "upload-enabled: false. Включите в конфиге отправку!"));
             return;
         }
 
@@ -107,14 +114,14 @@ public class ComandListener extends Fastcommand {
         }
 
         if (!response.success) {
-            sender.sendMessage(ChatColor.RED + " ERROR SENDING: " + response.message);
+            sender.sendMessage(ChatColor.RED + LangHelper.translaste("info.upload-enabled", "Ошибка отправки конфгиа: ") + response.message);
             return;
         }
 
         ConfigHelper.GetConfig().set("resource-pack-url", response.url);
         ConfigHelper.Save();
 
-        sender.sendMessage(ChatColor.GREEN + " файл отправлен");
+        sender.sendMessage(ChatColor.GREEN + LangHelper.translaste("upload-ok", " файл ресурспакак успешно отправлен на хостинг"));
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
             player.setResourcePack(ConfigHelper.GetConfig().getString("resource-pack-url"));
@@ -127,19 +134,17 @@ public class ComandListener extends Fastcommand {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm");
         String formattedDate = "resourcepack_" + dateFormat.format(currentDate) + ".zip";
-        sender.sendMessage(ChatColor.GREEN + " Делаем бэкап ресурспака");
+        sender.sendMessage(ChatColor.GREEN + LangHelper.translaste("backup.start", "Делаем бэкап ресурспака"));
         FolderZipper.Arhivate(ResourcepackGenerator.rootFoolder, ResourcepackGenerator.rootFoolder.getParentFile().getAbsolutePath() + "/backup/" + formattedDate);
 
 
         IndexingHandle.Clear();
         IndexingHandle.Indexing();
 
-        sender.sendMessage(ChatColor.GRAY + " Будет добавлено итемов: " + CreateOverideTask.GetCountEmpty() + " шт.");
-        sender.sendMessage(ChatColor.GRAY + " Генерация ресурспака запущена");
+        sender.sendMessage(ChatColor.GRAY + LangHelper.translaste("generate-amount-to-adding", " Будет добавлено итемов: ") + CreateOverideTask.GetCountEmpty() + " X");
 
-        // long currentTime = System.currentTimeMillis();
         CreateOverideTask.Run();
-        sender.sendMessage(ChatColor.GREEN + " Генерация выполнена. Загрузите ресурспак на сайт что бы обновить его у игроков! Или введите /reassets upload");
+        sender.sendMessage(ChatColor.GREEN + LangHelper.translaste("generate-ok", " Генерация выполнена. Загрузите ресурспак на сайт что бы обновить его у игроков! Или введите команду отправки ресурспака.") + " /reassets upload");
 
 
         IndexingHandle.Clear();
@@ -149,10 +154,10 @@ public class ComandListener extends Fastcommand {
 
     public void StatusCommand(CommandSender sender, String[] args) {
 
-        sender.sendMessage(ChatColor.GRAY + " Статус ресурспака");
-        sender.sendMessage(ChatColor.GRAY + " Плагин загрузился и проиндексировал паки за: " + (IndexingHandle.onIndexingTime) + " сек.");
-        sender.sendMessage(ChatColor.GRAY + " Найдено новых не промоделеных итемов: " + CreateOverideTask.GetCountEmpty() + " шт.");
-        sender.sendMessage(ChatColor.RESET + " Всего итемов в базе " + RegisterImageController.images.size() + " шт.");
+        sender.sendMessage(ChatColor.GRAY + LangHelper.translaste("status.title", "Статус ресурспака"));
+        sender.sendMessage(ChatColor.GRAY + LangHelper.translaste("status.time", "Плагин загрузился и проиндексировал паки за: ") + (IndexingHandle.onIndexingTime) + " sec.");
+        sender.sendMessage(ChatColor.GRAY + LangHelper.translaste("status.new-items", "Найдено новых не промоделеных итемов:") + CreateOverideTask.GetCountEmpty() + " X");
+        sender.sendMessage(ChatColor.RESET + LangHelper.translaste("status.amount", "Всего итемов в базе: ") + RegisterImageController.images.size() + " X");
 
 
     }

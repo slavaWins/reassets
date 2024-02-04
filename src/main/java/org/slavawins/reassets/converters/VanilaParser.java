@@ -34,7 +34,7 @@ public class VanilaParser {
 
             } catch (IOException e) {
 
-                System.out.println("----- [reassets] Ошибка загрузки   возможно файл повережден");
+                System.out.println("----- [reassets] Error file loading #244");
                 e.printStackTrace();
             }
         }

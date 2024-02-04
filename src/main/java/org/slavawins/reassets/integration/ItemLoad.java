@@ -1,4 +1,4 @@
-package api;
+package org.slavawins.reassets.integration;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -8,7 +8,19 @@ import org.slavawins.reassets.controllers.RegisterImageController;
 
 public class ItemLoad {
 
+    /**
+     * Получать итем с текстурой из моего плагина
+     * @param path
+     * @return
+     */
+    public static ItemStack get(String path) {
+        return getByPath(path);
+    }
+
+
     public static ItemStack getByPath(String path) {
+
+        path = path.replace(".png", "");
 
         for (ItemImageContract img : RegisterImageController.images) {
 

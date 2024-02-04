@@ -82,7 +82,7 @@ public class Uploader {
             responseContract = UploadResponseContract.Parse(response);
         } else {
             // Обработка ошибки
-            System.out.println("Error conection при выполнении запроса. Код ответа: " + responseCode);
+            System.out.println("Error conection send, code: " + responseCode);
         }
 
         // Закрытие соединения

@@ -73,7 +73,7 @@ public class ResourcepackGenerator {
             RegisterImageController.AddImage(imgNew, pathLocal);
         }
         RawImagesRepository.fileList.clear();
-        ChatLog.Debug("Files coped in respack!");
+        ChatLog.Debug( "Files coped in respack!");
     }
 
     public File getFoolder() {

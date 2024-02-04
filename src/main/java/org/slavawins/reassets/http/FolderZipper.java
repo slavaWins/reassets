@@ -32,7 +32,7 @@ public class FolderZipper {
             // Закрытие потока ZipOutputStream
             zipOutputStream.close();
 
-            System.out.println("Папка успешно запакована в ZIP-архив.");
+            //   System.out.println("Папка успешно запакована в ZIP-архив.");
         } catch (IOException e) {
             e.printStackTrace();
         }

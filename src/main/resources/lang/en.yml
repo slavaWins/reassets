@@ -1,0 +1,26 @@
+on-enable: Plugin successfully loaded
+backup:
+  start: Make a backup of the resourcepack
+cmd:
+  help:
+    generate: Build resourcepack
+    status: Resourcepack status
+    list: Output list of items
+    upload: Upload the resourcespac to the server and distribute to players
+    reload: Reload the config
+generate-amount-to-adding: ' The following items will be added: '
+generate-ok: ' Generation complete. Upload the resourcespak to the site to update
+  it. for the players! Or enter the generate-amount-to-adding command.'
+reloaded: Config reloaded
+status:
+  title: Resourcepack status
+  time: 'The plugin has loaded and indexed the packs for: '
+  new-items: 'Found new non-promoted items:'
+  amount: 'Total number of items in the database: '
+upload-ok: ' resourcepack file successfully uploaded to hosting'
+info:
+  upload-enabled: 'Error sending confgia: '
+list:
+  title: 'List res:'
+  take: 'Take item'
+  to-code: 'Copy code name'

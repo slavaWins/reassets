@@ -25,7 +25,7 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
 
         CommandElemet com = new CommandElemet();
         com.subcommond = "help";
-        com.descrip = "Хелп по плагину";
+        com.descrip = "Help";
         com.event = this::sendHelpCommand;
         commands.add(com);
     }
@@ -59,7 +59,7 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
     }
 
     public void sendHelpCommand(CommandSender sender, String[] args) {
-        String text = ChatColor.BLUE + "[reassets] +" + ChatColor.GOLD + " Хелп по командам:";
+        String text = ChatColor.BLUE + "[reassets] +" + ChatColor.GOLD + " Helps:";
         for (CommandElemet com : commands) {
             text += "\n" + ChatColor.GOLD + "/" + rootCommand + " " + com.subcommond;
             for (String arg : com.arguments) {
