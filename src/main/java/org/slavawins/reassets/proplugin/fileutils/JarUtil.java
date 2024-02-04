@@ -1,4 +1,4 @@
-package org.slavawins.reassets.fileutils;
+package org.slavawins.reassets.proplugin.fileutils;
 
 
 import java.io.File;

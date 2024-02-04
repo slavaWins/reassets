@@ -1,9 +1,9 @@
 package org.slavawins.reassets.controllers;
 
 import org.slavawins.reassets.contracts.ItemImageContract;
-import org.slavawins.reassets.contracts.VanilaOverideFasadeModel;
+import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
-import org.slavawins.reassets.helpers.ChatLog;
+import org.slavawins.reassets.proplugin.OpLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class CreateOverideTask {
 
         for (String material : materials) {
 
-            ChatLog.Debug("------ MATERIAL RENDER " + material);
+            OpLog.Debug("------ MATERIAL RENDER " + material);
 
             VanilaOverideFasadeModel vanilaOverideFasadeModel = VanilaOverideFasadeModel.FindMaterial(material);
 

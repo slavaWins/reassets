@@ -4,11 +4,10 @@ import org.slavawins.reassets.FileHasedCopy;
 import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.OveriderModelMCContrcat;
-import org.slavawins.reassets.contracts.VanilaOverideFasadeModel;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.converters.VanilaParser;
-import org.slavawins.reassets.helpers.ChatLog;
+import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.repositories.RawImagesRepository;
 
 import java.io.File;
@@ -73,7 +72,7 @@ public class ResourcepackGenerator {
             RegisterImageController.AddImage(imgNew, pathLocal);
         }
         RawImagesRepository.fileList.clear();
-        ChatLog.Debug( "Files coped in respack!");
+        OpLog.Debug( "Files coped in respack!");
     }
 
     public File getFoolder() {
@@ -91,7 +90,7 @@ public class ResourcepackGenerator {
 
         for (VanilaOverideFasadeModel model : vnailaItemCoreModels) {
 
-            ChatLog.Debug(model.file.getName() + " max: " + model.maxId);
+            OpLog.Debug(model.file.getName() + " max: " + model.maxId);
         }
     }
 

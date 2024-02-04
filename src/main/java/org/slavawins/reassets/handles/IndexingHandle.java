@@ -1,7 +1,7 @@
 package org.slavawins.reassets.handles;
 
 import org.slavawins.reassets.Reassets;
-import org.slavawins.reassets.contracts.VanilaOverideFasadeModel;
+import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.converters.Scaner;
 import org.slavawins.reassets.models.ResourcepackGenerator;

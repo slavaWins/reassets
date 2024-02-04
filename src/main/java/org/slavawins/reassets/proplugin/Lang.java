@@ -1,4 +1,4 @@
-package org.slavawins.reassets.lang;
+package org.slavawins.reassets.proplugin;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.slavawins.reassets.Reassets;
@@ -6,7 +6,7 @@ import org.slavawins.reassets.Reassets;
 import java.io.File;
 import java.io.IOException;
 
-public class LangHelper {
+public class Lang {
 
     private static File langFile;
 

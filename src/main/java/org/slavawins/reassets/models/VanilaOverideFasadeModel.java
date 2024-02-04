@@ -1,8 +1,8 @@
-package org.slavawins.reassets.contracts;
+package org.slavawins.reassets.models;
 
 import com.google.gson.Gson;
+import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
-import org.slavawins.reassets.models.ResourcepackGenerator;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -14,17 +14,17 @@ public class Uploader {
 
         UploadResponseContract responseContract = new UploadResponseContract();
 
-        System.out.println("----------send x1");
-        // Установка URL-адреса, на который будет отправлен файл
+
+
         URL url = new URL(ConfigHelper.GetConfig().getString("upload-url"));
 
-        // Создание HTTP-соединения
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
 
 
-        System.out.println("----------send x12");
+
         // Установка параметров запроса
         connection.setRequestProperty("Content-Type", "multipart/form-data;");
         connection.setRequestProperty("Content-Disposition", "attachment; filename=\"resourcepack.zip\"");
@@ -73,8 +73,8 @@ public class Uploader {
             String response = reader.readLine();
 
             // Обработка ответа
-            System.out.println("----------RESPONSE SERVER:");
-            System.out.println(response);
+          //  System.out.println("----------RESPONSE SERVER:");
+          //  System.out.println(response);
 
             // Закрытие потока чтения
             reader.close();

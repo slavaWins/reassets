@@ -1,9 +1,9 @@
 package org.slavawins.reassets.converters;
 
 import com.google.gson.Gson;
-import org.slavawins.reassets.contracts.VanilaOverideFasadeModel;
+import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
-import org.slavawins.reassets.helpers.ChatLog;
+import org.slavawins.reassets.proplugin.OpLog;
 
 import java.io.File;
 import java.io.FileReader;
@@ -24,7 +24,7 @@ public class VanilaParser {
 
             try {
 
-                ChatLog.Debug(matFile.getName());
+                OpLog.Debug(matFile.getName());
                 Reader reader = new FileReader(matFile);
                 Gson gson = new Gson();
                 VnailaItemCoreModel vnailaItemCoreModel = gson.fromJson(reader, VnailaItemCoreModel.class);

@@ -1,4 +1,4 @@
-package org.slavawins.reassets.libs;
+package org.slavawins.reassets.proplugin;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

@@ -1,7 +1,7 @@
 package org.slavawins.reassets.integration;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slavawins.reassets.fileutils.JarUtil;
+import org.slavawins.reassets.proplugin.fileutils.JarUtil;
 
 import java.io.IOException;
 
