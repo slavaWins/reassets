@@ -1,6 +1,8 @@
 package org.slavawins.reassets.http;
 
+import org.slavawins.reassets.ConfigHelper;
 import org.slavawins.reassets.Reassets;
+import org.slavawins.reassets.contracts.UploadResponseContract;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -8,11 +10,13 @@ import java.net.URL;
 
 public class Uploader {
 
-    public static void send() throws IOException {
+    public static UploadResponseContract SendRP() throws IOException {
+
+        UploadResponseContract responseContract = new UploadResponseContract();
 
         System.out.println("----------send x1");
         // Установка URL-адреса, на который будет отправлен файл
-        URL url = new URL("http://minehelper.test/upload.php");
+        URL url = new URL(ConfigHelper.GetConfig().getString("upload-url"));
 
         // Создание HTTP-соединения
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -23,13 +27,13 @@ public class Uploader {
         System.out.println("----------send x12");
         // Установка параметров запроса
         connection.setRequestProperty("Content-Type", "multipart/form-data;");
-        connection.setRequestProperty("Content-Disposition", "attachment; filename=\"path.zip\"");
+        connection.setRequestProperty("Content-Disposition", "attachment; filename=\"resourcepack.zip\"");
         // Создание потока для записи данных в соединение
         // OutputStream outputStream = connection.getOutputStream();
 
         System.out.println("----------send x3");
         // Чтение файла и запись его в поток
-        File file = new File(Reassets.myDataFolder.getPath() + "/pack.zip");
+        File file = new File(Reassets.myDataFolder.getPath() + "/resourcepack.zip");
 
 
         DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
@@ -41,7 +45,7 @@ public class Uploader {
 
         if (!file.exists()) {
             System.out.println("----------send ERROR FILE: " + file.getAbsolutePath());
-            return;
+            return UploadResponseContract.Error("Not file rp in " + file.getAbsolutePath());
         }
 
         System.out.println("----------send x4");
@@ -74,6 +78,8 @@ public class Uploader {
 
             // Закрытие потока чтения
             reader.close();
+
+            responseContract = UploadResponseContract.Parse(response);
         } else {
             // Обработка ошибки
             System.out.println("Error conection при выполнении запроса. Код ответа: " + responseCode);
@@ -81,5 +87,8 @@ public class Uploader {
 
         // Закрытие соединения
         connection.disconnect();
+
+        return responseContract;
     }
+
 }

@@ -9,6 +9,7 @@ public class ConfigHelper {
 
     private static File file;
     private static YamlConfiguration yamlConfiguration;
+    private static File dataFoolder;
 
     public static void DefYmlConfi() {
         yamlConfiguration.set("debug", true);
@@ -32,18 +33,24 @@ public class ConfigHelper {
         return yamlConfiguration;
     }
 
-    public static void Init(File dataFoolder) {
-        if (!dataFoolder.exists()) dataFoolder.mkdirs();
 
-
+    public static void Reload() {
         file = new File(dataFoolder, "config.yml");
-
 
         if (!file.exists()) {
             Reassets.getInstance().saveResource("config.yml", false);
         } else {
             yamlConfiguration = YamlConfiguration.loadConfiguration(file);
         }
+    }
+
+    public static void Init(File _dataFoolder) {
+        if (!_dataFoolder.exists()) _dataFoolder.mkdirs();
+
+        dataFoolder = _dataFoolder;
+                
+
+        Reload();
 
 
     }

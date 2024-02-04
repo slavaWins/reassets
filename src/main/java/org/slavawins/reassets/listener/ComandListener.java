@@ -4,7 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.slavawins.reassets.ConfigHelper;
 import org.slavawins.reassets.contracts.ItemImageContract;
+import org.slavawins.reassets.contracts.UploadResponseContract;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.handles.IndexingHandle;
@@ -24,7 +26,7 @@ public class ComandListener extends Fastcommand {
     public ComandListener(String rootCommand) {
         super(rootCommand);
 
-        onlyOp =true;
+        onlyOp = true;
 
         CommandElemet com = new CommandElemet();
         com.subcommond = "generate";
@@ -58,9 +60,9 @@ public class ComandListener extends Fastcommand {
 
     public void ListCommand(CommandSender sender, String[] args) {
 
-        if(sender instanceof  Player){
+        if (sender instanceof Player) {
 
-            ShowItemsHandle.ShowList((Player)sender);
+            ShowItemsHandle.ShowList((Player) sender);
             return;
         }
         sender.sendMessage(ChatColor.GREEN + " Список ресов:");
@@ -79,22 +81,43 @@ public class ComandListener extends Fastcommand {
     }
 
 
+    public void ReloadCommand(CommandSender sender, String[] args) {
+        ConfigHelper.Reload();
+
+        sender.sendMessage(ChatColor.GREEN + " CONFIG RELOADED");
+    }
 
     public void UploadCommand(CommandSender sender, String[] args) {
 
 
+        if (!ConfigHelper.GetConfig().getBoolean("upload-enabled", false)) {
+            sender.sendMessage(ChatColor.RED + " upload-enabled: false. Включите в конфиге отправку!");
+            return;
+        }
+
         FolderZipper.Arhivate(ResourcepackGenerator.rootFoolder, ResourcepackGenerator.rootFoolder.getParentFile().getAbsolutePath() + "/resourcepack.zip");
 
-        sender.sendMessage(ChatColor.GREEN + " Отправляю файл на сервре");
+        UploadResponseContract response = UploadResponseContract.Error("Error uploading");
         try {
-            Uploader.send();
+            response = Uploader.SendRP();
+
+
         } catch (IOException e) {
             System.err.println("Error send file " + e.getMessage());
         }
+
+        if (!response.success) {
+            sender.sendMessage(ChatColor.RED + " ERROR SENDING: " + response.message);
+            return;
+        }
+
+        ConfigHelper.GetConfig().set("resource-pack-url", response.url);
+        ConfigHelper.Save();
+
         sender.sendMessage(ChatColor.GREEN + " файл отправлен");
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            player.setResourcePack("http://minehelper.test/uploads/xz.zip?dl=1");
+            player.setResourcePack(ConfigHelper.GetConfig().getString("resource-pack-url"));
         }
     }
 
@@ -107,6 +130,7 @@ public class ComandListener extends Fastcommand {
         sender.sendMessage(ChatColor.GREEN + " Делаем бэкап ресурспака");
         FolderZipper.Arhivate(ResourcepackGenerator.rootFoolder, ResourcepackGenerator.rootFoolder.getParentFile().getAbsolutePath() + "/backup/" + formattedDate);
 
+
         IndexingHandle.Clear();
         IndexingHandle.Indexing();
 
@@ -115,7 +139,11 @@ public class ComandListener extends Fastcommand {
 
         // long currentTime = System.currentTimeMillis();
         CreateOverideTask.Run();
-        sender.sendMessage(ChatColor.GREEN + " Генерация выполнена. Загрузите ресурспак на сайт что бы обновить его у игроков!");
+        sender.sendMessage(ChatColor.GREEN + " Генерация выполнена. Загрузите ресурспак на сайт что бы обновить его у игроков! Или введите /reassets upload");
+
+
+        IndexingHandle.Clear();
+        IndexingHandle.Indexing();
 
     }
 

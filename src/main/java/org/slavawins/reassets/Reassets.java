@@ -26,6 +26,7 @@ public final class Reassets extends JavaPlugin {
         myDataFolder = getDataFolder();
         dataFolderPlugins = getDataFolder().getParentFile();
 
+        ConfigHelper.Init(getDataFolder());
         ExtractInstall.copyResources();
 
         ComandListener comandListener = new ComandListener("reassets");
