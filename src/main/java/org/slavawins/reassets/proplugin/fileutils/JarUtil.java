@@ -1,6 +1,9 @@
 package org.slavawins.reassets.proplugin.fileutils;
 
 
+import org.bukkit.ChatColor;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,18 +16,24 @@ import java.util.zip.ZipInputStream;
 public class JarUtil {
     public static final char JAR_SEPARATOR = '/';
 
-    public static void copyFolderFromJar(String folderName, File destFolder, CopyOption option) throws IOException {
-        copyFolderFromJar(folderName, destFolder, option, null);
+    public static void copyFolderFromJar(JavaPlugin plugin, String folderName, File destFolder, CopyOption option) throws IOException {
+        copyFolderFromJar(plugin, folderName, destFolder, option, null);
     }
 
-    public static void copyFolderFromJar(String folderName, File destFolder, CopyOption option, PathTrimmer trimmer) throws IOException {
+    public static void copyFolderFromJar(JavaPlugin plugin,String folderName, File destFolder, CopyOption option, PathTrimmer trimmer) throws IOException {
+
+
+
         if (!destFolder.exists())
             destFolder.mkdirs();
 
         byte[] buffer = new byte[1024];
 
         File fullPath = null;
-        String path = JarUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        //String path = JarUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        String path =  plugin.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+          //path = plugin.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+       // System.out.println(ChatColor.YELLOW +""+path);
         if (trimmer != null)
             path = trimmer.trim(path);
         try {
@@ -33,6 +42,8 @@ public class JarUtil {
 
             fullPath = new File(new URI(path));
         } catch (URISyntaxException e) {
+
+            System.out.println("  extract  error" + folderName);
             e.printStackTrace();
         }
         ZipInputStream zis = new ZipInputStream(new FileInputStream(fullPath));
@@ -84,8 +95,4 @@ public class JarUtil {
         String trim(String original);
     }
 
-    public static void main(String[] ar) throws IOException {
-        copyFolderFromJar("SomeFolder", new File(""), CopyOption.REPLACE_IF_EXIST);
-
-    }
 }

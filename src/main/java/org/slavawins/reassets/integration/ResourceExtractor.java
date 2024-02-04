@@ -1,5 +1,6 @@
 package org.slavawins.reassets.integration;
 
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.proplugin.fileutils.JarUtil;
 
@@ -18,9 +19,11 @@ public class ResourceExtractor {
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdirs();
 
         try {
-            JarUtil.copyFolderFromJar(folderName, plugin.getDataFolder(), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
+            System.out.println("[" + plugin.getName() + "] extract " + folderName);
+            JarUtil.copyFolderFromJar(plugin, folderName, plugin.getDataFolder(), JarUtil.CopyOption.REPLACE_IF_EXIST);
 
         } catch (IOException e) {
+            System.out.println(ChatColor.RED + "[" + plugin.getName() + "] ERROR!!! extract " + folderName);
             throw new RuntimeException(e);
         }
     }

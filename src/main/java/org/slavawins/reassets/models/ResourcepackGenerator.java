@@ -55,7 +55,7 @@ public class ResourcepackGenerator {
             String pathLocal = img.getPath(); // будет /xmob/admin_tool/npc_cloner.png
             pathLocal = pathLocal.replace("\\", "/");
             pathLocal = pathLocal.replaceFirst("plugins", "");
-            pathLocal = pathLocal.replaceFirst("/assets", "");
+            pathLocal = pathLocal.replaceFirst("/reassets", "");
 
 
             //Path sourcePath = img.toPath();
