@@ -106,6 +106,7 @@ public class ResourcepackGenerator {
         if (pathLocal.endsWith("/")) {
             pathLocal = pathLocal.substring(0, pathLocal.length() - 1);
         }
+        pathLocal = pathLocal.toLowerCase();
         //System.out.println("====>  RenamingImage   " + pathLocal);
         return pathLocal;
     }
@@ -172,7 +173,7 @@ public class ResourcepackGenerator {
             String pathToTextures = "generated" + new File(pathLocal).getParent().toString() + '/';
             pathToTextures = pathToTextures.replace("\\", "/");
             pathToTextures = pathToTextures.replace("/models/", "/textures/");
-
+            pathToTextures = pathToTextures.toLowerCase();
 
             BlockBrenchConverter.AddPrefixToTextures(imgNew, pathToTextures);
 

@@ -11,10 +11,11 @@ public class RegisterImageController {
 
     public static String convertToNames(String name) {
 
-
+        name = name.replace(".json", "");
         //   name = name.replace(Reassets.dataFolderPlugins.getAbsolutePath(), "");
         name = name.replace(".png", "").toUpperCase().replaceAll("[^A-Z0-9_]", "_");
         name = name.replace("_ASSETS", "");
+
         name = name.replace("__", "_");
         name = name.substring(1);
         return name;

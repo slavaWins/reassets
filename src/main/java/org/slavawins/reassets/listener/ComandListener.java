@@ -103,6 +103,7 @@ public class ComandListener extends Fastcommand {
         String text = "";
         for (ItemImageContract img : RegisterImageController.images) {
             if (!(img.categoryTyep == CategoryEnum.items || img.categoryTyep == CategoryEnum.models)) continue;
+
             text += "\n" + img.enumName + " ";
             text += img.material.toUpperCase();
             if (img.modelId >= 0) {
