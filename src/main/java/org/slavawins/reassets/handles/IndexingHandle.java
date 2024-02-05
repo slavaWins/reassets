@@ -1,13 +1,21 @@
 package org.slavawins.reassets.handles;
 
+import org.bukkit.inventory.ItemStack;
 import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.CategoryEnum;
+import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.controllers.RegisterImageController;
+import org.slavawins.reassets.integration.ReassetsGet;
 import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.controllers.CreateOverideTask;
 import org.slavawins.reassets.converters.Scaner;
 import org.slavawins.reassets.models.ResourcepackGenerator;
 import org.slavawins.reassets.repositories.RawImagesRepository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class IndexingHandle {
 
@@ -44,8 +52,27 @@ public class IndexingHandle {
         //resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.models3dList);
         resourcepackGenerator.MappingOverides();
         resourcepackGenerator.IndexingPivots();
-
+        IndexingPluginPrefixs();
         onIndexingTime = (System.currentTimeMillis() - currentTime) / 1000f;
+
+    }
+
+
+    public static Map<String, ItemStack> pluginPrefixs = new HashMap<>();
+
+    public static Map<String, ItemStack>  getPluginsPrefixs(){
+        return pluginPrefixs;
+    }
+
+    public static void IndexingPluginPrefixs(){
+        for (ItemImageContract img : RegisterImageController.images) {
+            int indexOfUnderscore = img.enumName.indexOf("_");
+            String plugin = img.enumName.substring(0, indexOfUnderscore);
+
+            if(pluginPrefixs.containsKey(plugin))continue;
+
+            pluginPrefixs.put(plugin, ReassetsGet.item(img.enumName, plugin));
+        }
 
     }
 }

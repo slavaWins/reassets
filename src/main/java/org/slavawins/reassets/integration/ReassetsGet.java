@@ -60,6 +60,8 @@ public class ReassetsGet {
 
 
         String s1 = path.replace("/reassets/", "");
+          s1 = path.replace("reassets/", "");
+         s1 = s1.replace("//", "");
 
         ItemImageContract selected =null;
         for (ItemImageContract img : RegisterImageController.images) {
