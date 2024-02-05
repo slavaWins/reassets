@@ -1,0 +1,20 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        "❏": -8,
+        "\uD83D\uDF96": -48
+      }
+    },
+    {
+      "file": "minecraft:item/acacia_door.png",
+      "chars": [
+        "\uE001"
+      ],
+      "height": 9,
+      "ascent": 8,
+      "type": "bitmap"
+    }
+  ]
+}

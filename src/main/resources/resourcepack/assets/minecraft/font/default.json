@@ -3,6 +3,11 @@
     {
       "type": "reference",
       "id": "minecraft:reassets"
+    },
+
+    {
+      "type": "reference",
+      "id": "minecraft:include/negative_reassets"
     }
   ]
 }
