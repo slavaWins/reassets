@@ -40,6 +40,7 @@ public class IndexingHandle {
                 .CopyRawImagesToResorsepack( RawImagesRepository.imagesItems, CategoryEnum.items);
         resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.testureList, CategoryEnum.textures);
         resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.uiList, CategoryEnum.ui);
+        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.sounds, CategoryEnum.sounds);
         resourcepackGenerator.Copy3DModelsToResorsepack( RawImagesRepository.models3dList);
 
         RawImagesRepository.uiList.clear();
@@ -49,6 +50,11 @@ public class IndexingHandle {
 
         FontMappingHandle.Indexing();
         FontMappingHandle.Addder();
+
+        SoundMappingHandle.Indexing();
+        SoundMappingHandle.Addder();
+
+        RawImagesRepository.sounds.clear();
         //resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.models3dList);
         resourcepackGenerator.MappingOverides();
         resourcepackGenerator.IndexingPivots();

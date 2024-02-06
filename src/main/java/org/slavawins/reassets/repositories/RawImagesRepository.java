@@ -7,6 +7,7 @@ import java.util.List;
 public class RawImagesRepository {
 
     public static List<File> uiList = new ArrayList<>();
+    public static List<File> sounds = new ArrayList<>();
     public static List<File> models3dList = new ArrayList<>();
     public static List<File> testureList = new ArrayList<>();
     public static List<File> imagesItems = new ArrayList<>();

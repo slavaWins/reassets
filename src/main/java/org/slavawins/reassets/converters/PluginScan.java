@@ -35,6 +35,15 @@ public class PluginScan {
 
             }
 
+            if (categorty.getName().equalsIgnoreCase("sounds")) {
+
+                for (File img : Mapper.MappingImages(categorty)) {
+                    if (img.getName().indexOf(".ogg") < 0) continue;
+                    RawImagesRepository.sounds.add(img);
+                }
+
+            }
+
 
             if (categorty.getName().equalsIgnoreCase("ui")) {
                 for (File img : Mapper.MappingImages(categorty)) {

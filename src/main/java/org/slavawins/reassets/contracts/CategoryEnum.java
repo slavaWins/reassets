@@ -4,6 +4,7 @@ public enum CategoryEnum {
 
     items,
     ui,
+    sounds,
     models,
     textures;
 }

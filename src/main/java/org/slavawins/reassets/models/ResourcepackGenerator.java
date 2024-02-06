@@ -47,6 +47,7 @@ public class ResourcepackGenerator {
         foolders.add("/assets/minecraft/models/generated");
         foolders.add("/assets/minecraft/models/item");
         foolders.add("/assets/minecraft/atlases");
+        foolders.add("/assets/minecraft/sounds");
 
 
         for (String p : foolders) {
@@ -92,7 +93,7 @@ public class ResourcepackGenerator {
     }
 
     private String RenamingImage(String pathLocal) {
-       // System.out.println(pathLocal);
+        // System.out.println(pathLocal);
         pathLocal = pathLocal.replace("\\", "/");
         pathLocal = pathLocal.replaceFirst("plugins", "/");
         pathLocal = pathLocal.replaceFirst("/reassets", "/");
@@ -114,6 +115,9 @@ public class ResourcepackGenerator {
     public void CopyRawImagesToResorsepack(List<File> imagesItems, CategoryEnum categoryEnum) {
         String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack/assets/minecraft/textures/generated";
 
+        if (categoryEnum == CategoryEnum.sounds) {
+            resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack/assets/minecraft/sounds";
+        }
 
         for (File img : imagesItems) {
 
@@ -123,6 +127,10 @@ public class ResourcepackGenerator {
 
             if (categoryEnum == CategoryEnum.textures) {
                 pathLocal = pathLocal.replace("minecraft/textures/", "textures/");
+            }
+
+            if (categoryEnum == CategoryEnum.sounds) {
+                pathLocal = pathLocal.replace("/sounds", "/");
             }
 
             Path destinationPath = Path.of(resourcepackPath, pathLocal);
@@ -139,6 +147,10 @@ public class ResourcepackGenerator {
 
             if (categoryEnum == CategoryEnum.ui) {
                 RegisterImageController.AddAsItem(imgNew, pathLocal, CategoryEnum.ui);
+            }
+
+            if (categoryEnum == CategoryEnum.sounds) {
+                RegisterImageController.AddAsItem(imgNew, pathLocal, CategoryEnum.sounds);
             }
 
         }
@@ -206,7 +218,8 @@ public class ResourcepackGenerator {
     public void IndexingPivots() {
         for (ItemImageContract img : RegisterImageController.images) {
 
-            if(img.categoryTyep==CategoryEnum.ui)continue;
+            if (img.categoryTyep == CategoryEnum.ui) continue;
+            if (img.categoryTyep == CategoryEnum.sounds) continue;
 
             VanilaOverideFasadeModel.OverideFindResponse response = VanilaOverideFasadeModel.GetModelByRealitiveTexturePath(img.modelNameForOveride.replace(".png", "").replace(".json", ""));
 

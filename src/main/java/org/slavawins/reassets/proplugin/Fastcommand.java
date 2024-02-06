@@ -98,6 +98,9 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
 
         for (CommandElemet com : commands) {
             if (!com.subcommond.equalsIgnoreCase(args[0])) continue;
+
+
+
             if (com.arguments.size() != args.length - 1) continue;
 
             String[] postArgs = new String[args.length - 1];
