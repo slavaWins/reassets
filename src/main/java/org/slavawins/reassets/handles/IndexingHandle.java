@@ -37,11 +37,11 @@ public class IndexingHandle {
         resourcepackGenerator.CreateStructureResoursePack();
 
         resourcepackGenerator
-                .CopyRawImagesToResorsepack( RawImagesRepository.imagesItems, CategoryEnum.items);
-        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.testureList, CategoryEnum.textures);
-        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.uiList, CategoryEnum.ui);
-        resourcepackGenerator.CopyRawImagesToResorsepack( RawImagesRepository.sounds, CategoryEnum.sounds);
-        resourcepackGenerator.Copy3DModelsToResorsepack( RawImagesRepository.models3dList);
+                .CopyRawImagesToResorsepack(RawImagesRepository.imagesItems, CategoryEnum.items);
+        resourcepackGenerator.CopyRawImagesToResorsepack(RawImagesRepository.testureList, CategoryEnum.textures);
+        resourcepackGenerator.CopyRawImagesToResorsepack(RawImagesRepository.uiList, CategoryEnum.ui);
+        resourcepackGenerator.CopyRawImagesToResorsepack(RawImagesRepository.sounds, CategoryEnum.sounds);
+        resourcepackGenerator.Copy3DModelsToResorsepack(RawImagesRepository.models3dList);
 
         RawImagesRepository.uiList.clear();
         RawImagesRepository.imagesItems.clear();
@@ -66,18 +66,21 @@ public class IndexingHandle {
 
     public static Map<String, ItemStack> pluginPrefixs = new HashMap<>();
 
-    public static Map<String, ItemStack>  getPluginsPrefixs(){
+    public static Map<String, ItemStack> getPluginsPrefixs() {
         return pluginPrefixs;
     }
 
-    public static void IndexingPluginPrefixs(){
+    public static void IndexingPluginPrefixs() {
         for (ItemImageContract img : RegisterImageController.images) {
+            if(!(img.categoryTyep==CategoryEnum.items || img.categoryTyep==CategoryEnum.models))continue;
+
             int indexOfUnderscore = img.enumName.indexOf("_");
             String plugin = img.enumName.substring(0, indexOfUnderscore);
 
-            if(pluginPrefixs.containsKey(plugin))continue;
+            if (pluginPrefixs.containsKey(plugin)) continue;
 
-            pluginPrefixs.put(plugin, ReassetsGet.item(img.enumName, plugin));
+
+            pluginPrefixs.put(plugin, ReassetsGet.item(img.modelNameForOveride, plugin));
         }
 
     }

@@ -71,7 +71,7 @@ public class SoundMappingHandle {
         Map<String, VanilaSoundContract> soundPack = Parse(file);
 
 
-        System.out.println("XXXXXXX-----------------------");
+
         for (ItemImageContract img : RegisterImageController.images) {
             if (img.categoryTyep != CategoryEnum.sounds) continue;
 
@@ -85,9 +85,6 @@ public class SoundMappingHandle {
 
             name = name.replace("/", ".").toLowerCase();
 
-         //   System.out.println(name);
-           // System.out.println(localPath);
-
 
             if (soundsExist.contains(name)) {
                 continue;
@@ -100,7 +97,7 @@ public class SoundMappingHandle {
 
         Gson gson = new Gson();
         String content = gson.toJson(soundPack);
-        //content = content.replace("\\\\u", "\\u");
+
 
         try {
 

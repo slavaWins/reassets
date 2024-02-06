@@ -38,6 +38,11 @@ public class RegisterImageController {
         itemImageContract.categoryTyep = categoryTyep;
         itemImageContract.modelNameForOveride = "generated" + relitivePath;
 
+
+        if (file.getAbsolutePath().indexOf("\\models\\block\\"+file.getName()) > 0) {
+            itemImageContract.isBlock = true;
+        }
+
         if (itemImageContract.categoryTyep == CategoryEnum.ui) {
             //itemImageContract.modelNameForOveride = "reassets_ui" + relitivePath;
         }

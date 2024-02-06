@@ -1,5 +1,6 @@
 package org.slavawins.reassets.controllers;
 
+import org.bukkit.Material;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.models.VanilaOverideFasadeModel;
@@ -12,7 +13,13 @@ import java.util.List;
 public class CreateOverideTask {
 
 
-    public static String GetMaterialFromNameFile(String filename) {
+    public static String GetMaterialFromNameFile(ItemImageContract contract) {
+        String filename = contract.file.getName();
+
+        if (contract.isBlock) {
+            return Material.PURPLE_STAINED_GLASS.toString().toLowerCase();
+        }
+
         if (filename.indexOf("_eat.") > 0) return "apple";
         return "bone";
     }
@@ -23,7 +30,7 @@ public class CreateOverideTask {
 
     public static void AddTask(ItemImageContract img) {
 
-        img.material = GetMaterialFromNameFile(img.file.getName());
+        img.material = GetMaterialFromNameFile(img);
         imgs.add(img);
 
         if (!materials.contains(img.material)) {
@@ -57,9 +64,9 @@ public class CreateOverideTask {
                 VanilaOverideFasadeModel.Write(vanilaOverideFasadeModel.file, vanilaOverideFasadeModel.model);
 
 
-                if(img.categoryTyep== CategoryEnum.items) {
+                if (img.categoryTyep == CategoryEnum.items) {
                     VanilaOverideFasadeModel.WriteSingleCustomModel(img);
-                }else {
+                } else {
                     //VanilaOverideFasadeModel.WriteSingleCustomModel(img);
                 }
 

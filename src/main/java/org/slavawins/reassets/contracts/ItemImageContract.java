@@ -12,6 +12,7 @@ public class ItemImageContract {
     public int modelId = -1;
     public String modelNameForOveride;
     public CategoryEnum categoryTyep;
+    public boolean isBlock;
 
     public void sout() {
         if (material == null) {

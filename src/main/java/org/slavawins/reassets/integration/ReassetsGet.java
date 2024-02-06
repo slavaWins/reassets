@@ -1,14 +1,13 @@
 package org.slavawins.reassets.integration;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.handles.FontMappingHandle;
+import org.slavawins.reassets.handles.ItemCreate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,19 +56,6 @@ public class ReassetsGet {
     }
 
 
-    static ItemStack getByImg(ItemImageContract img) {
-        ItemStack itemStack = new ItemStack(Material.BONE, 1);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setCustomModelData(img.modelId);
-        meta.setDisplayName(img.enumName);
-        itemStack.setItemMeta(meta);
-
-        ReassetsItemCreateEvent customEvent = new ReassetsItemCreateEvent(itemStack, img.modelNameForOveride, img.enumName);
-        Bukkit.getPluginManager().callEvent(customEvent);
-
-        return itemStack;
-    }
-
     /**
      * Получать итем с текстурой из моего плагина
      *
@@ -93,14 +79,14 @@ public class ReassetsGet {
             if (img.modelNameForOveride.replace(".png", "").replace(".json", "").indexOf(path) <= -1 && !img.enumName.equalsIgnoreCase(path))
                 continue;
 
-            return getByImg(img);
+            return ItemCreate.getByImg(img);
         }
 
 
         //Если не нашли по полному нейму, то ищем по относительному
         for (ItemImageContract img : RegisterImageController.images) {
             if ((img.modelNameForOveride.indexOf(s1) > 0)) {
-                return getByImg(img);
+                return ItemCreate.getByImg(img);
             }
         }
 

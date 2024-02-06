@@ -169,6 +169,7 @@ public class ResourcepackGenerator {
             String pathLocal = img.getPath();
 
 
+
             pathLocal = pathLocal.replace("\\minecraft\\", "/");
             pathLocal = RenamingImage(pathLocal);     //plugins\trashitem\reassets\items\gun.png  ====>  /trashitem/items/gun.png
 
@@ -186,6 +187,11 @@ public class ResourcepackGenerator {
             pathToTextures = pathToTextures.replace("\\", "/");
             pathToTextures = pathToTextures.replace("/models/", "/textures/");
             pathToTextures = pathToTextures.toLowerCase();
+
+
+            pathToTextures = pathToTextures.substring(0, pathToTextures.indexOf("/textures/") + "/textures/".length());
+           // pathToTextures += imgNew.getName().toLowerCase().replace(".png", "");
+
 
             BlockBrenchConverter.AddPrefixToTextures(imgNew, pathToTextures);
 
