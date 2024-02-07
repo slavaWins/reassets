@@ -66,6 +66,7 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
     public static class CommandElemet {
         public String subcommond = "list";
         public String descrip = "Описание команды";
+        public boolean isOnlyPlayer = false;
         public List<String> arguments = new ArrayList<>();
 
         public BiConsumer<CommandSender, String[]> event;
@@ -103,11 +104,18 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
 
             if (com.arguments.size() != args.length - 1) continue;
 
+
             String[] postArgs = new String[args.length - 1];
             for (int i = 1; i < args.length; i++){
                 postArgs[i-1] = args[i];
             }
 
+            if(com.isOnlyPlayer){
+                if(!(sender instanceof Player)){
+                    sender.sendMessage("[FASTCOMMAND] This Command only players");
+                    return true;
+                }
+            }
             com.event.accept(sender, postArgs);
             return true;
         }

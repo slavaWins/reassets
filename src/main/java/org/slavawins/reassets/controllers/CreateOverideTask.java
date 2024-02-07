@@ -52,6 +52,8 @@ public class CreateOverideTask {
 
             for (ItemImageContract img : imgs) {
 
+                if(!img.material.equalsIgnoreCase(material))continue;;
+
                 vanilaOverideFasadeModel.maxId++;
 
                 VnailaItemCoreModel._OverrideVanila over = new VnailaItemCoreModel._OverrideVanila();
