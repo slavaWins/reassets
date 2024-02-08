@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
 import org.slavawins.reassets.controllers.RegisterImageController;
 import org.slavawins.reassets.handles.FontMappingHandle;
@@ -64,34 +65,45 @@ public class ReassetsGet {
      */
     public static ItemStack item(String path) {
 
+        path = path.trim();
+        String pathOriginal = path;
         path = path.replace(".png", "").replace(".json", "");
-
+        path = path.replace("generated/", "");
+        int val = 1+1;
 
         String s1 = path.replace("/reassets/", "");
         s1 = path.replace("reassets/", "");
         s1 = s1.replace("//", "");
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+        String pAsEnum = path.toUpperCase().replace("/", "_");
 
-        ItemImageContract selected = null;
         for (ItemImageContract img : RegisterImageController.images) {
-
+            if (img.categoryTyep != CategoryEnum.models) continue;
+            if (img.categoryTyep != CategoryEnum.items) continue;
 
             //не очень эффективно надо где-то закэшировать реплейснутый вариант чтоб искать быстрее
-            if (img.modelNameForOveride.replace(".png", "").replace(".json", "").indexOf(path) <= -1 && !img.enumName.equalsIgnoreCase(path))
-                continue;
+            // if (img.modelNameForOveride.replace(".png", "").replace(".json", "").indexOf(path) <= -1 && !img.enumName.equalsIgnoreCase(path))
 
-            return ItemCreate.getByImg(img);
+            if (img._search.indexOf(path) > -1 || img.enumName.equalsIgnoreCase(path) || img.enumName.equalsIgnoreCase(pathOriginal)) {
+                return ItemCreate.getByImg(img);
+            }
+           // System.out.println(pathOriginal + "==" + img.enumName + "=" + (img.enumName.equalsIgnoreCase(pathOriginal)));
+
+
         }
-
 
         //Если не нашли по полному нейму, то ищем по относительному
         for (ItemImageContract img : RegisterImageController.images) {
-            if ((img.modelNameForOveride.indexOf(s1) > 0)) {
+            if (img.categoryTyep != CategoryEnum.models && img.categoryTyep != CategoryEnum.items) continue;
+            //  System.out.println(img._search);
+
+            if ((img._search.indexOf(s1) > 0) || img.enumName.equalsIgnoreCase(pAsEnum)) {
                 return ItemCreate.getByImg(img);
             }
         }
-
-
-        System.out.println(ChatColor.RED + "[reassets] NOT EXIST ITEM " + path);
+        System.out.println(ChatColor.YELLOW + "[reassets] no item:" + path);
         return null;
     }
 
@@ -118,6 +130,7 @@ public class ReassetsGet {
             String key = entry.getKey();
             String value = entry.getValue();
             //  System.out.println(key);
+            if (key.indexOf(ENUM_VARIANT) > 0) return value;
             if (key.indexOf(s1) > 0) return value;
         }
 

@@ -1,12 +1,10 @@
 package org.slavawins.reassets.converters;
 
-import org.slavawins.reassets.Reassets;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mapper {
+public class ScanTargetTypesFiles {
 
 
 

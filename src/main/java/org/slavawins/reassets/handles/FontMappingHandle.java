@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FontMappingHandle {
 
@@ -51,6 +53,21 @@ public class FontMappingHandle {
             imagesExist.add(prov.file);
         }
 
+    }
+
+    public static void ParsingAsentHeight(VanilaProviderFontContract img) {
+        String input = img.file;
+
+
+        Pattern pattern = Pattern.compile("_(\\d+)_(-?\\d+)\\.png");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            img.height = Integer.parseInt(matcher.group(1));
+            img.ascent = Integer.parseInt(matcher.group(2));
+
+
+        }
     }
 
 
@@ -85,6 +102,9 @@ public class FontMappingHandle {
             VanilaProviderFontContract providerFontContract = new VanilaProviderFontContract();
             providerFontContract.chars.add(code);
             providerFontContract.file = name;
+
+            ParsingAsentHeight(providerFontContract);
+            //providerFontContract.height =
 
             font.providers.add(providerFontContract);
         }

@@ -29,6 +29,7 @@ public class ItemCreate {
 
         ReassetsItemCreateEvent customEvent = new ReassetsItemCreateEvent(itemStack, img.modelNameForOveride, img.enumName);
         Bukkit.getPluginManager().callEvent(customEvent);
+        System.out.println(img.enumName);
 
         return itemStack;
     }

@@ -37,13 +37,21 @@ public class RegisterImageController {
         itemImageContract.file = file;
         itemImageContract.categoryTyep = categoryTyep;
         itemImageContract.modelNameForOveride = "generated" + relitivePath;
+        itemImageContract.modelNameForOveride = itemImageContract.modelNameForOveride.replace("//","/");
+        itemImageContract._search = relitivePath.replace(".json", "").replace(".png", "");
+
+        if( itemImageContract._search.startsWith("/")){
+            itemImageContract._search =  itemImageContract._search.substring(1);
+        }
 
 
-        if (file.getAbsolutePath().indexOf("\\models\\block\\"+file.getName()) > 0) {
+
+        if (file.getAbsolutePath().indexOf("\\models\\block\\" + file.getName()) > 0) {
             itemImageContract.isBlock = true;
         }
 
         if (itemImageContract.categoryTyep == CategoryEnum.ui) {
+
             //itemImageContract.modelNameForOveride = "reassets_ui" + relitivePath;
         }
 

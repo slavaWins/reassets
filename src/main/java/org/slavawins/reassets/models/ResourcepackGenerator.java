@@ -131,6 +131,7 @@ public class ResourcepackGenerator {
 
             if (categoryEnum == CategoryEnum.sounds) {
                 pathLocal = pathLocal.replace("/sounds", "/");
+                pathLocal = pathLocal.replace("//", "/");
             }
 
             Path destinationPath = Path.of(resourcepackPath, pathLocal);
