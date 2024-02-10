@@ -12,14 +12,21 @@ public class ItemCreate {
 
 
     public static ItemStack getByImg(ItemImageContract img) {
-        Material mat = Material.BONE;
 
-        if(img.isBlock)mat =Material.PURPLE_STAINED_GLASS;
+        Material mat = Material.matchMaterial(img.material);
+
+        if(mat == null) {
+            mat = Material.BONE;
+        }
+
+        if(img.isBlock){
+            mat =Material.PURPLE_STAINED_GLASS;
+        }
 
         ItemStack itemStack = new ItemStack(mat, 1);
         ItemMeta meta = itemStack.getItemMeta();
         meta.setCustomModelData(img.modelId);
-        meta.setDisplayName(img.enumName);
+        meta.setDisplayName(img.title);
 
 
         ContainerHelper.Set(meta, "reassets", img.enumName);
@@ -29,7 +36,6 @@ public class ItemCreate {
 
         ReassetsItemCreateEvent customEvent = new ReassetsItemCreateEvent(itemStack, img.modelNameForOveride, img.enumName);
         Bukkit.getPluginManager().callEvent(customEvent);
-        System.out.println(img.enumName);
 
         return itemStack;
     }

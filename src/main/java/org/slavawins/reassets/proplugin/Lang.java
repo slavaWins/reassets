@@ -1,6 +1,7 @@
 package org.slavawins.reassets.proplugin;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.Reassets;
 
 import java.io.File;
@@ -11,6 +12,9 @@ public class Lang {
     private static File langFile;
 
     public static String translaste(String key, String text) {
+
+
+      //  System.out.println("---- LOADIN: " + langFile.getAbsolutePath());
 
         String res = langConfig.getString(key, "");
         if (!res.isEmpty()) return res;
@@ -29,15 +33,24 @@ public class Lang {
 
     public static YamlConfiguration langConfig;
 
+    public static File myDataFolder;
+
+    public static void init(JavaPlugin plugin, String language) {
+        myDataFolder = plugin.getDataFolder();
+        loadLanguageFile(language);
+    }
+
     public static void loadLanguageFile(String language) {
-        langFile = new File(Reassets.myDataFolder, "lang/" + language + ".yml");
+        langFile = new File(myDataFolder, "lang/" + language + ".yml");
+
+    //    System.out.println("---- START LOAD LANG: " + langFile.getAbsolutePath());
 
         if (!langFile.exists()) {
-            // Если файл локализации не найден, используем английский язык
-            langFile = new File(Reassets.myDataFolder, "lang/ru.yml");
+            // Если файл локализации не найден, используем ru язык
+            langFile = new File(myDataFolder, "lang/ru.yml");
         }
 
-        System.out.println("---- LOADIN: " + langFile.getAbsolutePath());
+      //  System.out.println("---- LOADIN: " + langFile.getAbsolutePath());
         langConfig = YamlConfiguration.loadConfiguration(langFile);
     }
 }

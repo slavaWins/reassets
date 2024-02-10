@@ -14,6 +14,7 @@ public class ItemImageContract {
     public String _search;
     public CategoryEnum categoryTyep;
     public boolean isBlock;
+    public String title = "No name";
 
     public void sout() {
         if (material == null) {

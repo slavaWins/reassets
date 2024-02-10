@@ -1,24 +1,18 @@
-package org.slavawins.reassets;
+package org.slavawins.reassets.configs;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.slavawins.reassets.Reassets;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ConfigHelper {
+public class ConfigNames {
+
 
     private static File file;
     private static YamlConfiguration yamlConfiguration;
     private static File dataFoolder;
 
-    public static void DefYmlConfi() {
-        yamlConfiguration.set("debug", true);
-
-    }
-
-    public static boolean IsDebug() {
-        return yamlConfiguration.getBoolean("debug", true);
-    }
 
     public static void Save() {
         try {
@@ -35,10 +29,10 @@ public class ConfigHelper {
 
 
     public static void Reload() {
-        file = new File(dataFoolder, "config.yml");
+        file = new File(dataFoolder, "names.yml");
 
         if (!file.exists()) {
-            Reassets.getInstance().saveResource("config.yml", false);
+            Reassets.getInstance().saveResource("names.yml", false);
         }
         yamlConfiguration = YamlConfiguration.loadConfiguration(file);
     }
@@ -47,10 +41,8 @@ public class ConfigHelper {
         if (!_dataFoolder.exists()) _dataFoolder.mkdirs();
 
         dataFoolder = _dataFoolder;
-                
 
         Reload();
-
 
     }
 

@@ -18,6 +18,11 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
     public List<CommandElemet> commands = new ArrayList<>();
 
 
+    /**
+     * Команда которая вызывается если вписать /base по дефалту хелп
+     */
+    public BiConsumer<CommandSender, String[]> rootEvent = this::sendHelpCommand;
+
     public Fastcommand(String rootCommand) {
 
         this.rootCommand = rootCommand;
@@ -73,7 +78,7 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
     }
 
     public void sendHelpCommand(CommandSender sender, String[] args) {
-        String text = ChatColor.BLUE + "[reassets] +" + ChatColor.GOLD + " Helps:";
+        String text = ChatColor.BLUE + "["+rootCommand+"] +" + ChatColor.GOLD + " Helps:";
         for (CommandElemet com : commands) {
             text += "\n" + ChatColor.GOLD + "/" + rootCommand + " " + com.subcommond;
             for (String arg : com.arguments) {
@@ -93,7 +98,7 @@ public class Fastcommand implements CommandExecutor, TabCompleter {
         if (!label.equalsIgnoreCase(rootCommand)) return false;
 
         if (args.length == 0) {
-            sendHelpCommand(sender, args);
+            rootEvent.accept(sender, args);
             return true;
         }
 

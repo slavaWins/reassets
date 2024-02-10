@@ -163,7 +163,7 @@ public class ResourcepackGenerator {
     public void Copy3DModelsToResorsepack(List<File> imagesItems) {
         String resourcepackPath = Reassets.myDataFolder.getAbsolutePath() + "/resourcepack/assets/minecraft/models/generated";
 
-        System.out.println("--- Copy3DModelsToResorsepack ");
+      //  System.out.println("--- Copy3DModelsToResorsepack ");
 
         for (File img : imagesItems) {
 

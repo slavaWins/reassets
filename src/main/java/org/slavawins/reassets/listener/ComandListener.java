@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.slavawins.reassets.ConfigHelper;
+import org.slavawins.reassets.configs.ConfigHelper;
 import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;

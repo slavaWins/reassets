@@ -1,6 +1,7 @@
 package org.slavawins.reassets.handles;
 
 import org.bukkit.inventory.ItemStack;
+import org.slavawins.reassets.configs.ConfigNames;
 import org.slavawins.reassets.Reassets;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
@@ -12,9 +13,7 @@ import org.slavawins.reassets.converters.Scaner;
 import org.slavawins.reassets.models.ResourcepackGenerator;
 import org.slavawins.reassets.repositories.RawImagesRepository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class IndexingHandle {
@@ -48,6 +47,7 @@ public class IndexingHandle {
         RawImagesRepository.testureList.clear();
         RawImagesRepository.models3dList.clear();
 
+        ConfigNames.Reload();
         FontMappingHandle.Indexing();
         FontMappingHandle.Addder();
 
@@ -61,6 +61,8 @@ public class IndexingHandle {
         IndexingPluginPrefixs();
         onIndexingTime = (System.currentTimeMillis() - currentTime) / 1000f;
 
+        IndexingNames.Run();
+
     }
 
 
@@ -72,7 +74,7 @@ public class IndexingHandle {
 
     public static void IndexingPluginPrefixs() {
         for (ItemImageContract img : RegisterImageController.images) {
-            if(!(img.categoryTyep==CategoryEnum.items || img.categoryTyep==CategoryEnum.models))continue;
+            if (!(img.categoryTyep == CategoryEnum.items || img.categoryTyep == CategoryEnum.models)) continue;
 
             int indexOfUnderscore = img.enumName.indexOf("_");
             String plugin = img.enumName.substring(0, indexOfUnderscore);

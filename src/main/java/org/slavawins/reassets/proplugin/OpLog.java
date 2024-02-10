@@ -3,7 +3,7 @@ package org.slavawins.reassets.proplugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.slavawins.reassets.ConfigHelper;
+import org.slavawins.reassets.configs.ConfigHelper;
 
 public class OpLog {
 

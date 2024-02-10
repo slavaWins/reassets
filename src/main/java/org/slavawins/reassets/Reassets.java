@@ -1,9 +1,9 @@
 package org.slavawins.reassets;
 
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slavawins.reassets.configs.ConfigHelper;
+import org.slavawins.reassets.configs.ConfigNames;
 import org.slavawins.reassets.handles.IndexingHandle;
-import org.slavawins.reassets.helpers.UnicodeHelper;
 import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.integration.ResourceExtractor;
 import org.slavawins.reassets.proplugin.Lang;
@@ -37,10 +37,11 @@ public final class Reassets extends JavaPlugin {
         }
 
         ConfigHelper.Init(getDataFolder());
+        ConfigNames.Init(getDataFolder());
 
 
         ResourceExtractor.extract(this, "lang");
-        Lang.loadLanguageFile(ConfigHelper.GetConfig().getString("lang", "en"));
+        Lang.init(this,ConfigHelper.GetConfig().getString("lang", "en"));
 
 
         ComandListener comandListener = new ComandListener("reassets");
@@ -50,7 +51,7 @@ public final class Reassets extends JavaPlugin {
         IndexingHandle.Indexing();
 
 
-        OpLog.SayOp(Lang.translaste("on-enable", "Плагин успешно загрузился"));
+      //  OpLog.SayOp(Lang.translaste("on-enable", "Плагин успешно загрузился"));
 
         getServer().getPluginManager().registerEvents(new StartListener(), this);
     }

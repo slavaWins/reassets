@@ -2,7 +2,7 @@ package org.slavawins.reassets.handles;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.slavawins.reassets.ConfigHelper;
+import org.slavawins.reassets.configs.ConfigHelper;
 
 public class ResourcepackSender {
 
