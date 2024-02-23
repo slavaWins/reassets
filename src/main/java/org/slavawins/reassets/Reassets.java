@@ -4,11 +4,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.slavawins.reassets.configs.ConfigHelper;
 import org.slavawins.reassets.configs.ConfigNames;
 import org.slavawins.reassets.handles.IndexingHandle;
-import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.integration.ResourceExtractor;
-import org.slavawins.reassets.proplugin.Lang;
 import org.slavawins.reassets.listener.ComandListener;
+import org.slavawins.reassets.listener.InteractItemListener;
 import org.slavawins.reassets.listener.StartListener;
+import org.slavawins.reassets.proplugin.Lang;
 
 import java.io.File;
 
@@ -54,6 +54,7 @@ public final class Reassets extends JavaPlugin {
       //  OpLog.SayOp(Lang.translaste("on-enable", "Плагин успешно загрузился"));
 
         getServer().getPluginManager().registerEvents(new StartListener(), this);
+        getServer().getPluginManager().registerEvents(new InteractItemListener(), this);
     }
 
     @Override

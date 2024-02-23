@@ -2,17 +2,11 @@ package org.slavawins.reassets.handles;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.bukkit.Bukkit;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
-import org.slavawins.reassets.contracts.vanila.VanilaFontContract;
-import org.slavawins.reassets.contracts.vanila.VanilaProviderFontContract;
 import org.slavawins.reassets.contracts.vanila.VanilaSoundContract;
 import org.slavawins.reassets.controllers.RegisterImageController;
-import org.slavawins.reassets.converters.VanilaFontConverter;
-import org.slavawins.reassets.helpers.UnicodeHelper;
 import org.slavawins.reassets.models.ResourcepackGenerator;
-import org.slavawins.reassets.repositories.RawImagesRepository;
 
 import java.io.File;
 import java.io.FileWriter;

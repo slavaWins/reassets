@@ -1,7 +1,6 @@
 package org.slavawins.reassets.converters;
 
 import com.google.gson.Gson;
-import org.slavawins.reassets.contracts.blockbrench.BlockbrenchSaveContract;
 import org.slavawins.reassets.contracts.vanila.VanilaFontContract;
 import org.slavawins.reassets.contracts.vanila.VanilaProviderFontContract;
 

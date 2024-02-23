@@ -26,7 +26,7 @@ public class ResourceExtractor {
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdirs();
 
         try {
-            System.out.println("[" + plugin.getName() + "] extract " + folderName);
+            //System.out.println("[" + plugin.getName() + "] extract " + folderName);
             JarUtil.copyFolderFromJar(plugin, folderName, new File(to), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
 
         } catch (IOException e) {

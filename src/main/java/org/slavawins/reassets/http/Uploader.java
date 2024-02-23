@@ -1,7 +1,7 @@
 package org.slavawins.reassets.http;
 
-import org.slavawins.reassets.configs.ConfigHelper;
 import org.slavawins.reassets.Reassets;
+import org.slavawins.reassets.configs.ConfigHelper;
 import org.slavawins.reassets.contracts.UploadResponseContract;
 
 import java.io.*;

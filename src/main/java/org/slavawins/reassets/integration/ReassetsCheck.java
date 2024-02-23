@@ -9,6 +9,7 @@ public class ReassetsCheck {
     public static String isReasset(ItemStack item) {
         if (item == null) return null;
         ItemMeta meta = item.getItemMeta();
+        if (!meta.hasCustomModelData()) return null;
 
         return ContainerHelper.GetString(meta, "reassets");
     }

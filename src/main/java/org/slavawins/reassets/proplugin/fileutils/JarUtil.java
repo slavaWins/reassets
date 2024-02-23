@@ -1,7 +1,6 @@
 package org.slavawins.reassets.proplugin.fileutils;
 
 
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;

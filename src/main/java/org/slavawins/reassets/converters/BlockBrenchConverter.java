@@ -2,14 +2,12 @@ package org.slavawins.reassets.converters;
 
 import com.google.gson.Gson;
 import org.slavawins.reassets.contracts.blockbrench.BlockbrenchSaveContract;
-import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 
 public class BlockBrenchConverter {

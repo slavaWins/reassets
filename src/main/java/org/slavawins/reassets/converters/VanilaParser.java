@@ -1,8 +1,8 @@
 package org.slavawins.reassets.converters;
 
 import com.google.gson.Gson;
-import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
+import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.proplugin.OpLog;
 
 import java.io.File;

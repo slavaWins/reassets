@@ -3,8 +3,8 @@ package org.slavawins.reassets.controllers;
 import org.bukkit.Material;
 import org.slavawins.reassets.contracts.CategoryEnum;
 import org.slavawins.reassets.contracts.ItemImageContract;
-import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
+import org.slavawins.reassets.models.VanilaOverideFasadeModel;
 import org.slavawins.reassets.proplugin.OpLog;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class CreateOverideTask {
         }
 
         if (filename.indexOf("_eat.") > 0) return "apple";
+        if (filename.indexOf("_drink.")>0 || filename.indexOf("_potion.") > 0) return "potion";
         return "bone";
     }
 

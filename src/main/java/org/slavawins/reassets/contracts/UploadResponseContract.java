@@ -1,7 +1,6 @@
 package org.slavawins.reassets.contracts;
 
 import com.google.gson.Gson;
-import org.slavawins.reassets.contracts.vanila.VnailaItemCoreModel;
 
 public class UploadResponseContract {
     public boolean success = false;

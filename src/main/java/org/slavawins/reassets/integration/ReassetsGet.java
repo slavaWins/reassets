@@ -21,6 +21,12 @@ public class ReassetsGet {
         return item(path.toString(), displayName);
     }
 
+    public static ItemStack item(String path, int amount) {
+        ItemStack item = item(path);
+        item.setAmount(amount);
+        return item;
+    }
+
     public static ItemStack item(IEnumString path) {
         return item(path.toString());
     }
@@ -65,11 +71,14 @@ public class ReassetsGet {
      */
     public static ItemStack item(String path) {
 
+        if(path==null)return null;
+        if(path.isEmpty())return null;
+
         path = path.trim();
         String pathOriginal = path;
         path = path.replace(".png", "").replace(".json", "");
         path = path.replace("generated/", "");
-        int val = 1+1;
+        int val = 1 + 1;
 
         String s1 = path.replace("/reassets/", "");
         s1 = path.replace("reassets/", "");
@@ -89,7 +98,7 @@ public class ReassetsGet {
             if (img._search.indexOf(path) > -1 || img.enumName.equalsIgnoreCase(path) || img.enumName.equalsIgnoreCase(pathOriginal)) {
                 return ItemCreate.getByImg(img);
             }
-           // System.out.println(pathOriginal + "==" + img.enumName + "=" + (img.enumName.equalsIgnoreCase(pathOriginal)));
+            // System.out.println(pathOriginal + "==" + img.enumName + "=" + (img.enumName.equalsIgnoreCase(pathOriginal)));
 
 
         }

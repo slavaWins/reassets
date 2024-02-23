@@ -2,7 +2,6 @@ package org.slavawins.reassets.proplugin;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slavawins.reassets.Reassets;
 
 import java.io.File;
 import java.io.IOException;

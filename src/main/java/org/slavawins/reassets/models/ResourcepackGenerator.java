@@ -15,7 +15,10 @@ import org.slavawins.reassets.integration.ResourceExtractor;
 import org.slavawins.reassets.proplugin.OpLog;
 import org.slavawins.reassets.repositories.RawImagesRepository;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;

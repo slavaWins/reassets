@@ -1,7 +1,5 @@
 package org.slavawins.reassets.contracts;
 
-import org.bukkit.Material;
-
 import java.io.File;
 
 public class ItemImageContract {
